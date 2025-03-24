@@ -4,6 +4,8 @@ A professional command-line tool for comprehensive SEO analysis, designed for we
 
 ![Black SEO Analyzer](https://www.sethserver.com/static/images/code.png)
 
+To purchase a license, visit the [Black SEO Analyzer product page](https://www.sethserver.com/seo/black-seo-analyzer.html).
+
 ## Overview
 
 Black SEO Analyzer is a powerful command-line tool that keeps your website visible in both traditional search results and AI-generated responses. In today's digital landscape, good technical SEO isn't just about Google rankings—it's about making sure AI systems can find and understand your content when people ask about your industry.
@@ -23,26 +25,6 @@ When your site's structure and metadata are optimized correctly, you'll appear i
 - **Measure Core Web Vitals & Performance**: Assess critical performance metrics including LCP, CLS, FID, and more. Get actionable recommendations to improve page speed and user experience.
 
 - **Generate Comprehensive Reports**: Export detailed reports in multiple formats (JSON, CSV, XML, HTML) to fit your workflow. Integrate results directly into your development pipeline.
-
-## Free vs. Paid Version
-
-| Feature | Free Trial | Full License |
-|---------|------------|-------------|
-| URLs Per Crawl | 100 URLs | Unlimited* |
-| JavaScript Rendering | ✓ | ✓ |
-| Basic SEO Analysis | ✓ | ✓ |
-| Advanced Performance Analysis | ✗ | ✓ |
-| Structured Data Validation | Limited | Complete |
-| Core Web Vitals Analysis | Basic | Comprehensive |
-| Output Formats | JSON only | All formats |
-| Internationalization Support | English only | All languages |
-| Command Line Scripting | Limited | Full access |
-| Concurrent Requests | 2 max | Configurable |
-| Rate Limiting | Fixed | Configurable |
-| Source Code Access Guarantee | ✗ | ✓ |
-| Price | Free | $259 (One-time) |
-
-\* The maximum URLs is dependent on your system's memory and storage capacity. Most modern systems can handle sites with 100,000+ URLs.
 
 ## True Ownership, Not Subscription
 
