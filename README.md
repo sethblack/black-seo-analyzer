@@ -30,7 +30,7 @@ When your site's structure and metadata are optimized correctly, you'll appear i
 
 Unlike subscription-based tools that stop working when you stop paying, Black SEO Analyzer offers genuine software ownership. Your purchase includes a legally-binding source code access guarantee if we ever discontinue the product — protecting your investment permanently.
 
-**Black SEO Analyzer License: $259 One-Time Purchase**
+**Black SEO Analyzer License: One-Time Purchase**
 - Lifetime software ownership
 - All future updates
 - Command-line efficiency
@@ -41,10 +41,10 @@ Unlike subscription-based tools that stop working when you stop paying, Black SE
 ## Installation
 
 1. Download the appropriate executable for your operating system from the [releases page](https://github.com/sethblack/black-seo-analyzer/releases).
-2. Make the file executable (Linux/macOS): `chmod +x black-seo-analyzer`
+2. Make the file executable (Linux/macOS): `chmod +x .\black-seo-analyzer`
 3. Move to a directory in your PATH for easy access (optional)
 
-## Usage
+## Windows Usage
 
 ```
 Usage: black-seo-analyzer.exe [OPTIONS] --url-to-begin-crawl <URL_TO_BEGIN_CRAWL>
@@ -74,7 +74,7 @@ Options:
           Print version
 ```
 
-### Example Usage
+### Windows Example Usage
 
 #### Basic JSON output for one site
 ```bash
@@ -94,6 +94,63 @@ black-seo-analyzer.exe --url-to-begin-crawl https://spa-example.com --spa --outp
 #### HTML folder output
 ```bash
 black-seo-analyzer.exe --url-to-begin-crawl https://example.com --output-type html-folder --output-file ./seo-reports
+```
+
+## Linux/MacOS Usage
+
+```
+Usage: black-seo-analyzer [OPTIONS] --url-to-begin-crawl <URL_TO_BEGIN_CRAWL>
+
+Options:
+      --url-to-begin-crawl <URL_TO_BEGIN_CRAWL>
+          URL of the sitemap to analyze
+      --log-file <LOG_FILE>
+          Path to log file
+      --output-type <OUTPUT_TYPE>
+          Output format type [default: html-folder] [possible values: json, jsonl, xml, csv, csv-flat, html-folder]
+      --concurrent-requests <CONCURRENT_REQUESTS>
+          Optional Number of concurrent requests to make [default: 20]
+      --rate-limit <RATE_LIMIT>
+          Optional Rate limit in milliseconds [default: 50]
+      --output-file <OUTPUT_FILE>
+
+      --spa
+
+      --is-sitemap
+
+      --locale <LOCALE>
+          Optional locale for internationalization [default: en]
+  -h, --help
+          Print help
+  -V, --version
+          Print version
+```
+
+### Linux/MacOS Example Usage
+
+Notes:
+
+* If the binary is not executable, you may need to run `chmod +x ./black-seo-analyzer` first.
+* The examples below assume the binary is in the current directory. If it's in a different directory, you'll need to provide the full path to the binary or if it is in your PATH, you can just run `black-seo-analyzer`.
+
+#### Basic JSON output for one site
+```bash
+./black-seo-analyzer --url-to-begin-crawl https://example.com --output-type json --output-file example-report.json
+```
+
+#### Website with a sitemap
+```bash
+./black-seo-analyzer.exe --url-to-begin-crawl https://example.com/sitemap.xml --is-sitemap --output-type json --output-file sitemap-report.json
+```
+
+#### Single page app
+```bash
+./black-seo-analyzer.exe --url-to-begin-crawl https://spa-example.com --spa --output-type json --output-file spa-report.json
+```
+
+#### HTML folder output
+```bash
+./black-seo-analyzer.exe --url-to-begin-crawl https://example.com --output-type html-folder --output-file ./seo-reports
 ```
 
 ## Real-World Applications
@@ -172,4 +229,4 @@ Your purchase includes a legally-binding commitment that gives you access to the
 Yes, our integrated headless browser technology provides full JavaScript rendering capabilities. This ensures accurate analysis of modern web applications built with React, Angular, Vue.js, and other JavaScript frameworks.
 
 **How are updates handled?**  
-Updates are provided via our GitHub repository and automatically checked by the tool itself. When new versions are available, you'll be notified when running the program. You'll receive all future updates at no additional cost.
+Updates are provided via our GitHub repository and can be downloaded at any time. You'll receive all future updates at no additional cost. Life-time ownership.
