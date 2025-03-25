@@ -2,7 +2,7 @@
 
 A professional command-line tool for comprehensive SEO analysis, designed for websites that need to be found in both search results and AI answers.
 
-![Black SEO Analyzer](https://www.sethserver.com/static/images/code.png)
+![Black SEO Analyzer](https://www.sethserver.com/static/images/black-seo-analyzer.png)
 
 To purchase a license, visit the [Black SEO Analyzer product page](https://www.sethserver.com/seo/black-seo-analyzer.html).
 
