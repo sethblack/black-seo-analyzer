@@ -70,7 +70,7 @@
    - Use the Software's brand name if redistributing modified versions
    - Share or distribute their License Key
 
-7.2. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED.
+7.2. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED INCLUDING BUT NOT LIMITED TO FITNESS FOR A PARTICULAR PURPOSE.
 
 ## 8. Termination
 
