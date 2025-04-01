@@ -2,9 +2,9 @@
 
 A professional command-line tool for comprehensive SEO analysis, designed for websites that need to be found in both search results and AI answers.
 
-![Black SEO Analyzer](https://www.sethserver.com/static/images/black-seo-analyzer.png)
+When run without a license you're limited in the number of pages you can crawl, but no other functionality is restricted. To purchase a license and unlock unlimited analysis power, visit [Black SEO Analyzer product page](https://www.sethserver.com/seo/black-seo-analyzer.html).
 
-To purchase a license, visit the [Black SEO Analyzer product page](https://www.sethserver.com/seo/black-seo-analyzer.html).
+![Black SEO Analyzer](https://www.sethserver.com/static/images/black-seo-analyzer.png)
 
 ## Overview
 
