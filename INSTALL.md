@@ -26,11 +26,11 @@ Before installing Black SEO Analyzer, ensure you have the following:
 
 ### Windows (Basic) {#windows-basic}
 
-1. Download the latest Windows zip file (.zip) from the [releases page](https://github.com/sethblack/black-seo-analyzer/releases).
+1. Download the latest Windows executable (`black-seo-analyzer.exe`) from the [releases page](https://github.com/sethblack/black-seo-analyzer/releases).
 
-2. Right-click and extract the ZIP file to a location of your choice (e.g., `C:\Program Files\black-seo-analyzer`).
+2. Move the downloaded `black-seo-analyzer.exe` file to a location of your choice (e.g., `C:\Program Files\black-seo-analyzer`).
 
-3. Open Command Prompt as Administrator and navigate to the extracted directory:
+3. Open Command Prompt and navigate to the directory where you placed the executable:
 
 ```cmd
 cd C:\Program Files\black-seo-analyzer
@@ -53,38 +53,33 @@ echo "YOUR_LICENSE_KEY" > license.txt
 Analyze a website and generate an HTML report:
 
 ```cmd
-black-seo-analyzer --url-to-begin-crawl https://example.com --output-type HtmlFolder
+black-seo-analyzer --url-to-begin-crawl https://example.com --output-type html-folder
 ```
 
 ### macOS (Basic) {#macos-basic}
 
-1. Download the latest macOS binary (.tar.gz) from the [releases page](https://github.com/sethblack/black-seo-analyzer/releases).
+1. Download the latest macOS binary (`black-seo-analyzer`) from the [releases page](https://github.com/sethblack/black-seo-analyzer/releases).
 
-2. Extract the archive:
-
-```bash
-tar -xzf black-seo-analyzer-macos.tar.gz
-```
-
-3. Move the binary to a location in your PATH:
+2. Move the downloaded binary to a location in your PATH (e.g., `/usr/local/bin/`):
 
 ```bash
-sudo mv black-seo-analyzer /usr/local/bin/
+sudo mv /path/to/downloaded/black-seo-analyzer /usr/local/bin/
 ```
+   *(Replace `/path/to/downloaded/black-seo-analyzer` with the actual path to the downloaded file)*
 
-4. Make it executable:
+3. Make it executable:
 
 ```bash
 sudo chmod +x /usr/local/bin/black-seo-analyzer
 ```
 
-5. Verify the installation:
+4. Verify the installation:
 
 ```bash
 black-seo-analyzer --version
 ```
 
-6. Create a license.txt file in the same directory with your license key:
+5. Create a license.txt file in the same directory as the binary (`/usr/local/bin/` in this example) or your working directory with your license key:
 
 ```bash
 echo "YOUR_LICENSE_KEY" > license.txt
@@ -95,34 +90,29 @@ echo "YOUR_LICENSE_KEY" > license.txt
 Analyze a website and generate an HTML report:
 
 ```bash
-black-seo-analyzer --url-to-begin-crawl https://example.com --output-type HtmlFolder
+black-seo-analyzer --url-to-begin-crawl https://example.com --output-type html-folder
 ```
 
 ### Linux (Basic) {#linux-basic}
 
 #### Ubuntu/Debian
 
-1. Download the latest Linux binary (.tar.gz) for your architecture from the [releases page](https://github.com/sethblack/black-seo-analyzer/releases).
+1. Download the latest Linux binary (`black-seo-analyzer`) for your architecture from the [releases page](https://github.com/sethblack/black-seo-analyzer/releases).
 
-2. Extract the archive:
-
-```bash
-tar -xzf black-seo-analyzer-linux-x86_64.tar.gz
-```
-
-3. Move the binary to a location in your PATH:
+2. Move the downloaded binary to a location in your PATH (e.g., `/usr/local/bin/`):
 
 ```bash
-sudo mv black-seo-analyzer /usr/local/bin/
+sudo mv /path/to/downloaded/black-seo-analyzer /usr/local/bin/
 ```
+   *(Replace `/path/to/downloaded/black-seo-analyzer` with the actual path to the downloaded file)*
 
-4. Make it executable:
+3. Make it executable:
 
 ```bash
 sudo chmod +x /usr/local/bin/black-seo-analyzer
 ```
 
-5. Verify the installation:
+4. Verify the installation:
 
 ```bash
 black-seo-analyzer --version
@@ -130,27 +120,22 @@ black-seo-analyzer --version
 
 #### Fedora/RHEL/CentOS
 
-1. Download the latest Linux binary (.tar.gz) for your architecture from the [releases page](https://github.com/sethblack/black-seo-analyzer/releases).
+1. Download the latest Linux binary (`black-seo-analyzer`) for your architecture from the [releases page](https://github.com/sethblack/black-seo-analyzer/releases).
 
-2. Extract the archive:
-
-```bash
-tar -xzf black-seo-analyzer-linux-x86_64.tar.gz
-```
-
-3. Move the binary to a location in your PATH:
+2. Move the downloaded binary to a location in your PATH (e.g., `/usr/local/bin/`):
 
 ```bash
-sudo mv black-seo-analyzer /usr/local/bin/
+sudo mv /path/to/downloaded/black-seo-analyzer /usr/local/bin/
 ```
+   *(Replace `/path/to/downloaded/black-seo-analyzer` with the actual path to the downloaded file)*
 
-4. Make it executable:
+3. Make it executable:
 
 ```bash
 sudo chmod +x /usr/local/bin/black-seo-analyzer
 ```
 
-5. Verify the installation:
+4. Verify the installation:
 
 ```bash
 black-seo-analyzer --version
@@ -161,7 +146,7 @@ black-seo-analyzer --version
 Analyze a website and generate an HTML report:
 
 ```bash
-black-seo-analyzer --url-to-begin-crawl https://example.com --output-type HtmlFolder
+black-seo-analyzer --url-to-begin-crawl https://example.com --output-type html-folder
 ```
 
 ## Advanced Installation
@@ -171,19 +156,19 @@ black-seo-analyzer --url-to-begin-crawl https://example.com --output-type HtmlFo
 
 #### Manual Installation
 
-1. Download the latest Windows binary (.zip) from the [releases page](https://github.com/sethblack/black-seo-analyzer/releases).
+1. Download the latest Windows executable (`black-seo-analyzer.exe`) from the [releases page](https://github.com/sethblack/black-seo-analyzer/releases).
 
-2. Extract the ZIP file to a location of your choice (e.g., `C:\Program Files\black-seo-analyzer`).
+2. Place the downloaded `black-seo-analyzer.exe` file in a location of your choice (e.g., `C:\Program Files\black-seo-analyzer`).
 
-3. Add the binary location to your PATH:
+3. Add the directory containing the executable to your system's PATH environment variable:
    - Right-click on "This PC" or "My Computer" and select "Properties"
    - Click on "Advanced system settings"
    - Click on "Environment Variables"
    - Under "System variables", find and select "Path", then click "Edit"
-   - Click "New" and add the path to the directory containing the binary (e.g., `C:\Program Files\black-seo-analyzer`)
+   - Click "New" and add the path to the directory containing the executable (e.g., `C:\Program Files\black-seo-analyzer`)
    - Click "OK" on all dialogs to save the changes
 
-4. Open a new Command Prompt and verify the installation:
+4. Open a *new* Command Prompt (existing ones won't see the updated PATH) and verify the installation:
 
 ```cmd
 black-seo-analyzer --version
@@ -258,18 +243,40 @@ USAGE:
     black-seo-analyzer [OPTIONS] --url-to-begin-crawl <URL>
 
 OPTIONS:
-    --url-to-begin-crawl <URL>       URL of the website to analyze
-    --log-file <FILE>                Path to log file (optional)
-    --output-type <TYPE>             Output format type [default: HtmlFolder]
-                                     [possible values: Json, Jsonl, Xml, Csv, CsvFlat, HtmlFolder]
-    --concurrent-requests <NUM>      Number of concurrent requests [default: 20]
-    --rate-limit <MS>                Rate limit in milliseconds [default: 50]
-    --output-file <FILE>             Output file path (optional)
-    --spa                            Enable SPA mode for single-page applications
-    --is-sitemap                     Treat the URL as a sitemap
-    --locale <LOCALE>                Locale for internationalization [default: en]
-    -h, --help                       Print help information
-    -V, --version                    Print version information
+      --url-to-begin-crawl <URL_TO_BEGIN_CRAWL>
+          URL of the sitemap to analyze
+      --log-file <LOG_FILE>
+          Path to log file
+      --output-type <OUTPUT_TYPE>
+          Output format type [default: html-folder] [possible values: json, jsonl, xml, csv, csv-flat, html-folder, json-files]
+      --concurrent-requests <CONCURRENT_REQUESTS>
+          Optional Number of concurrent requests to make [default: 20]
+      --rate-limit <RATE_LIMIT>
+          Optional Rate limit in milliseconds [default: 50]
+      --output-file <OUTPUT_FILE>
+
+      --spa
+
+      --is-sitemap
+
+      --disable-external-links
+          Optional flag to disable external link checking
+      --locale <LOCALE>
+          Optional locale for internationalization [default: en]
+      --use-anthropic-analyzer
+          Optional flag to enable Anthropic Claude API for SEO analysis
+      --anthropic-api-key <ANTHROPIC_API_KEY>
+          Optional Anthropic API key (can also be set via ANTHROPIC_API_KEY environment variable)
+      --anthropic-model <ANTHROPIC_MODEL>
+          Optional Anthropic model to use for analysis [default: claude-3-haiku-20240307]
+      --user-agent <USER_AGENT>
+          Optional User-Agent string for HTTP requests [default: "black-seo-analyzer v2025.1.10000"]
+      --max-pages <MAX_PAGES>
+          Optional maximum number of pages to crawl
+  -h, --help
+          Print help
+  -V, --version
+          Print version
 ```
 
 ## Examples
@@ -296,13 +303,13 @@ black-seo-analyzer --url-to-begin-crawl https://example.com/sitemap.xml --is-sit
 
 ```bash
 # JSON output
-black-seo-analyzer --url-to-begin-crawl https://example.com --output-type Json --output-file report.json
+black-seo-analyzer --url-to-begin-crawl https://example.com --output-type json --output-file report.json
 
 # CSV output
-black-seo-analyzer --url-to-begin-crawl https://example.com --output-type Csv --output-file report.csv
+black-seo-analyzer --url-to-begin-crawl https://example.com --output-type csv --output-file report.csv
 
 # XML output
-black-seo-analyzer --url-to-begin-crawl https://example.com --output-type Xml --output-file report.xml
+black-seo-analyzer --url-to-begin-crawl https://example.com --output-type xml --output-file report.xml
 ```
 
 ### Adjusting Crawl Settings
