@@ -12,187 +12,6 @@ Black SEO Analyzer is a powerful command-line tool that keeps your website visib
 
 When your site's structure and metadata are optimized correctly, you'll appear in both search results and AI conversations. Black SEO Analyzer cuts through the noise and tells you exactly what's holding your site back - without corporate buzzwords, just actionable data so you don't get left behind when someone asks an AI about exactly what you sell.
 
-## Comprehensive Feature List
-
-### Core Functionality
-- Command-line interface
-- Crawl websites starting from a specified URL
-- Crawl websites using a sitemap
-- Support for both static websites (HTTP requests) and Single Page Applications (SPAs) via headless browser
-- Configurable concurrent request limit
-- Configurable maximum page limit
-- Detailed logging system
-- Configurable log file location
-
-### Crawling Capabilities
-- HTTP request-based crawler
-- Headless browser-based crawler
-- Automatic detection and extraction of links, scripts, stylesheets, images
-- Sitemap parsing and processing
-- Asynchronous processing for crawling and analysis
-- Content hash generation (SHA1) for duplicate content detection
-- Configurable crawl delay
-- Respect robots.txt
-- User-agent customization
-- Domain extraction utility
-
-### SEO Analysis Modules
-- **Content Analysis**
-    - Word count
-    - Keyword density analysis
-    - Readability analysis (Flesch-Kincaid score, syllable counting)
-    - Duplicate content detection
-    - Heading structure analysis (H1, H2, etc.)
-    - Extraction of content from additional tags (`<strong>`, `<em>`, etc.)
-- **Metadata Analysis**
-    - Title tag extraction and validation
-    - Meta description extraction and validation
-    - Meta keywords extraction
-    - Viewport meta tag validation
-    - Robots meta tag validation
-    - Canonical URL validation
-    - OpenGraph data extraction and analysis (og:title, og:description, og:image, etc.)
-    - Twitter Card data extraction and analysis (twitter:card, twitter:title, etc.)
-- **URL Structure Analysis**
-    - Scheme validation (HTTPS preferred)
-    - Path analysis (length, character usage, keyword presence)
-    - Query parameter analysis (identification, potential issues)
-    - Fragment identifier analysis
-    - URL length validation
-    - Detection of common URL patterns (e.g., file extensions)
-- **Link Analysis**
-    - Identification of internal and external links
-    - Anchor text analysis (length, descriptiveness)
-    - Async checks for link status (broken links)
-    - Async checks for redirects
-    - Async checks for large file sizes linked
-    - Analysis of link attributes (nofollow, target)
-    - Normalization and classification of URLs (internal/external)
-- **Image Analysis**
-    - Alt tag presence and content analysis
-    - Image dimension analysis
-    - File size considerations
-- **Mobile-Friendliness Assessment**
-    - Viewport meta tag analysis
-    - Touch target size and spacing analysis
-    - Responsive image analysis (`srcset`, `sizes` attributes)
-    - Font size analysis (readability on mobile)
-    - Media query analysis (breakpoint coverage)
-- **Performance Analysis**
-    - Analysis of resource loading (scripts, stylesheets, images, fonts)
-    - Script loading analysis (`async`, `defer`)
-    - Stylesheet loading analysis
-    - Image loading analysis (`loading="lazy"`)
-    - Font loading analysis (`font-display`)
-    - Critical rendering path analysis
-    - Resource hint analysis (`preload`, `prefetch`, `preconnect`)
-    - Caching header analysis (Cache-Control, Expires)
-    - Cache busting techniques detection
-    - Compression analysis (Content-Encoding)
-    - Identification of critical resources
-    - Above-the-fold content detection heuristics
-    - TTFB and Total Load Time recording
-    - Extraction of performance metrics from browser/headers
-- **Security Analysis**
-    - HTTPS usage check
-    - Mixed content detection
-    - Content Security Policy (CSP) header analysis
-    - Form security analysis (autocomplete on sensitive fields)
-    - External resource integrity analysis (SRI checks)
-    - SSL certificate expiration check
-- **Structured Data/Schema Markup Validation**
-    - JSON-LD extraction and validation
-    - Microdata extraction and validation
-    - RDFa extraction and validation
-    - Validation of schema properties against known types
-    - Detection of deprecated schema properties
-- **Web Vitals Metrics Analysis**
-    - Analysis related to Largest Contentful Paint (LCP)
-    - Analysis related to First Input Delay (FID) / Interaction to Next Paint (INP) precursors
-    - Analysis related to Cumulative Layout Shift (CLS)
-    - Analysis related to First Contentful Paint (FCP)
-    - Analysis related to Time to Interactive (TTI)
-    - Analysis related to Total Blocking Time (TBT)
-    - Identification of blocking resources, long tasks, main thread work
-    - Analysis of image dimensions, dynamic content, font loading impact
-    - Calculation of an overall optimization score
-    - Generation of specific recommendations based on metrics
-- **CSS Analysis**
-    - Identification of external and inline styles
-    - Analysis of stylesheet content (potential issues, complexity)
-    - Media query analysis (related to responsiveness)
-    - Basic CSS-related accessibility checks
-    - Basic CSS-related performance checks
-    - Detection of potentially duplicate CSS rules
-- **JavaScript Analysis**
-    - Identification of external and inline scripts
-    - Analysis of script attributes (`async`, `defer`)
-    - Analysis of script loading patterns
-    - Basic security checks
-    - Analysis of inline script content complexity
-    - Analysis of event handlers
-    - Identification of third-party scripts
-    - Basic checks for deprecated JS APIs
-- **Internationalization Analysis**
-    - Language declaration analysis (`lang` attribute)
-    - `hreflang` implementation analysis
-    - Character encoding analysis (UTF-8 preferred)
-    - Text direction analysis (`dir` attribute)
-    - Basic checks for locale-specific formatting issues
-    - Basic checks for translation completeness heuristics
-    - Basic checks for time zone handling heuristics
-- **AI/LLM Analysis**
-    - Integration with Anthropic API (requires API key)
-    - Ability to send page content (or parts) to LLM for analysis based on predefined prompts
-    - AI-Powered Content Recommendations
-    - Automated Meta Description Generation
-    - Title Tag Optimization Suggestions
-    - Header Structure Recommendations
-    - Content Expansion Suggestions
-    - Executive Summary Generation
-
-### Output Formats
-- JSON output format
-- JSONL (JSON Lines) output format
-- XML output format
-- CSV output format
-- HTML report format
-- Individual JSON files per page
-- HTML folder output with index and individual page reports
-
-### Reporting Features
-- Detailed warnings and recommendations generated by individual analyzers
-- Collection of page-level metadata
-- Collection of page content details (headings, etc.)
-- Collection of page resources (links, scripts, styles, images)
-- Collection of Web Vitals analysis results
-- Performance metrics reporting (TTFB, Load Time)
-- Template-based HTML report generation
-
-### Internationalization
-- Multi-language support for UI text and report labels
-- Built-in translations (English, Spanish, Chinese)
-- Extensible translation system
-- Locale used for specific recommendations
-
-### Licensing System
-- Trial mode with limited functionality
-- Licensed mode with full functionality
-- License validation system
-- Different license tiers affecting functionality
-
-### Technical Details
-- Built with Rust
-- Asynchronous architecture
-- HTML parsing and DOM manipulation
-- Headless Chrome integration
-- HTTP client
-- Serialization/Deserialization
-- Custom URL serialization wrapper
-- Utility for creating safe filenames from URLs
-- Command-line argument parsing
-- Templating engine
-
 ## True Ownership, Not Subscription
 
 Unlike subscription-based tools that stop working when you stop paying, Black SEO Analyzer offers genuine software ownership. Your purchase includes a legally-binding source code access guarantee if we ever discontinue the product — protecting your investment permanently.
@@ -397,6 +216,187 @@ black-seo-analyzer.exe --url-to-begin-crawl example.com --output-type csv-flat \
 | sort -t',' -k2 \
 > content-review.csv
 ```
+
+## Comprehensive Feature List
+
+### Core Functionality
+- Command-line interface
+- Crawl websites starting from a specified URL
+- Crawl websites using a sitemap
+- Support for both static websites (HTTP requests) and Single Page Applications (SPAs) via headless browser
+- Configurable concurrent request limit
+- Configurable maximum page limit
+- Detailed logging system
+- Configurable log file location
+
+### Crawling Capabilities
+- HTTP request-based crawler
+- Headless browser-based crawler
+- Automatic detection and extraction of links, scripts, stylesheets, images
+- Sitemap parsing and processing
+- Asynchronous processing for crawling and analysis
+- Content hash generation (SHA1) for duplicate content detection
+- Configurable crawl delay
+- Respect robots.txt
+- User-agent customization
+- Domain extraction utility
+
+### SEO Analysis Modules
+- **Content Analysis**
+    - Word count
+    - Keyword density analysis
+    - Readability analysis (Flesch-Kincaid score, syllable counting)
+    - Duplicate content detection
+    - Heading structure analysis (H1, H2, etc.)
+    - Extraction of content from additional tags (`<strong>`, `<em>`, etc.)
+- **Metadata Analysis**
+    - Title tag extraction and validation
+    - Meta description extraction and validation
+    - Meta keywords extraction
+    - Viewport meta tag validation
+    - Robots meta tag validation
+    - Canonical URL validation
+    - OpenGraph data extraction and analysis (og:title, og:description, og:image, etc.)
+    - Twitter Card data extraction and analysis (twitter:card, twitter:title, etc.)
+- **URL Structure Analysis**
+    - Scheme validation (HTTPS preferred)
+    - Path analysis (length, character usage, keyword presence)
+    - Query parameter analysis (identification, potential issues)
+    - Fragment identifier analysis
+    - URL length validation
+    - Detection of common URL patterns (e.g., file extensions)
+- **Link Analysis**
+    - Identification of internal and external links
+    - Anchor text analysis (length, descriptiveness)
+    - Async checks for link status (broken links)
+    - Async checks for redirects
+    - Async checks for large file sizes linked
+    - Analysis of link attributes (nofollow, target)
+    - Normalization and classification of URLs (internal/external)
+- **Image Analysis**
+    - Alt tag presence and content analysis
+    - Image dimension analysis
+    - File size considerations
+- **Mobile-Friendliness Assessment**
+    - Viewport meta tag analysis
+    - Touch target size and spacing analysis
+    - Responsive image analysis (`srcset`, `sizes` attributes)
+    - Font size analysis (readability on mobile)
+    - Media query analysis (breakpoint coverage)
+- **Performance Analysis**
+    - Analysis of resource loading (scripts, stylesheets, images, fonts)
+    - Script loading analysis (`async`, `defer`)
+    - Stylesheet loading analysis
+    - Image loading analysis (`loading="lazy"`)
+    - Font loading analysis (`font-display`)
+    - Critical rendering path analysis
+    - Resource hint analysis (`preload`, `prefetch`, `preconnect`)
+    - Caching header analysis (Cache-Control, Expires)
+    - Cache busting techniques detection
+    - Compression analysis (Content-Encoding)
+    - Identification of critical resources
+    - Above-the-fold content detection heuristics
+    - TTFB and Total Load Time recording
+    - Extraction of performance metrics from browser/headers
+- **Security Analysis**
+    - HTTPS usage check
+    - Mixed content detection
+    - Content Security Policy (CSP) header analysis
+    - Form security analysis (autocomplete on sensitive fields)
+    - External resource integrity analysis (SRI checks)
+    - SSL certificate expiration check
+- **Structured Data/Schema Markup Validation**
+    - JSON-LD extraction and validation
+    - Microdata extraction and validation
+    - RDFa extraction and validation
+    - Validation of schema properties against known types
+    - Detection of deprecated schema properties
+- **Web Vitals Metrics Analysis**
+    - Analysis related to Largest Contentful Paint (LCP)
+    - Analysis related to First Input Delay (FID) / Interaction to Next Paint (INP) precursors
+    - Analysis related to Cumulative Layout Shift (CLS)
+    - Analysis related to First Contentful Paint (FCP)
+    - Analysis related to Time to Interactive (TTI)
+    - Analysis related to Total Blocking Time (TBT)
+    - Identification of blocking resources, long tasks, main thread work
+    - Analysis of image dimensions, dynamic content, font loading impact
+    - Calculation of an overall optimization score
+    - Generation of specific recommendations based on metrics
+- **CSS Analysis**
+    - Identification of external and inline styles
+    - Analysis of stylesheet content (potential issues, complexity)
+    - Media query analysis (related to responsiveness)
+    - Basic CSS-related accessibility checks
+    - Basic CSS-related performance checks
+    - Detection of potentially duplicate CSS rules
+- **JavaScript Analysis**
+    - Identification of external and inline scripts
+    - Analysis of script attributes (`async`, `defer`)
+    - Analysis of script loading patterns
+    - Basic security checks
+    - Analysis of inline script content complexity
+    - Analysis of event handlers
+    - Identification of third-party scripts
+    - Basic checks for deprecated JS APIs
+- **Internationalization Analysis**
+    - Language declaration analysis (`lang` attribute)
+    - `hreflang` implementation analysis
+    - Character encoding analysis (UTF-8 preferred)
+    - Text direction analysis (`dir` attribute)
+    - Basic checks for locale-specific formatting issues
+    - Basic checks for translation completeness heuristics
+    - Basic checks for time zone handling heuristics
+- **AI/LLM Analysis**
+    - Integration with Anthropic API (requires API key)
+    - Ability to send page content (or parts) to LLM for analysis based on predefined prompts
+    - AI-Powered Content Recommendations
+    - Automated Meta Description Generation
+    - Title Tag Optimization Suggestions
+    - Header Structure Recommendations
+    - Content Expansion Suggestions
+    - Executive Summary Generation
+
+### Output Formats
+- JSON output format
+- JSONL (JSON Lines) output format
+- XML output format
+- CSV output format
+- HTML report format
+- Individual JSON files per page
+- HTML folder output with index and individual page reports
+
+### Reporting Features
+- Detailed warnings and recommendations generated by individual analyzers
+- Collection of page-level metadata
+- Collection of page content details (headings, etc.)
+- Collection of page resources (links, scripts, styles, images)
+- Collection of Web Vitals analysis results
+- Performance metrics reporting (TTFB, Load Time)
+- Template-based HTML report generation
+
+### Internationalization
+- Multi-language support for UI text and report labels
+- Built-in translations (English, Spanish, Chinese)
+- Extensible translation system
+- Locale used for specific recommendations
+
+### Licensing System
+- Trial mode with limited functionality
+- Licensed mode with full functionality
+- License validation system
+- Different license tiers affecting functionality
+
+### Technical Details
+- Built with Rust
+- Asynchronous architecture
+- HTML parsing and DOM manipulation
+- Headless Chrome integration
+- HTTP client
+- Serialization/Deserialization
+- Custom URL serialization wrapper
+- Utility for creating safe filenames from URLs
+- Command-line argument parsing
+- Templating engine for HTML report generation
 
 ## Frequently Asked Questions
 

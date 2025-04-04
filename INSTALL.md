@@ -39,7 +39,7 @@ cd C:\Program Files\black-seo-analyzer
 4. Open Command Prompt and verify the installation:
 
 ```cmd
-black-seo-analyzer --version
+black-seo-analyzer.exe --version
 ```
 
 5. Create a license.txt file in the same directory with your license key:
@@ -53,7 +53,7 @@ echo "YOUR_LICENSE_KEY" > license.txt
 Analyze a website and generate an HTML report:
 
 ```cmd
-black-seo-analyzer --url-to-begin-crawl https://example.com --output-type html-folder
+black-seo-analyzer.exe --url-to-begin-crawl https://example.com --output-type html-folder
 ```
 
 ### macOS (Basic) {#macos-basic}
