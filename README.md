@@ -26,9 +26,7 @@ Unlike subscription-based tools that stop working when you stop paying, Black SE
 
 ## Installation
 
-1. Download the appropriate executable for your operating system from the [releases page](https://github.com/sethblack/black-seo-analyzer/releases).
-2. Make the file executable (Linux/macOS): `chmod +x .\black-seo-analyzer`
-3. Move to a directory in your PATH for easy access (optional)
+Please read the [INSTALL.md](INSTALL.md) file for installation instructions.
 
 ## Windows Usage
 
