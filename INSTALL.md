@@ -2,6 +2,10 @@
 
 This document provides instructions for installing the Black SEO Analyzer tool on different operating systems.
 
+If you'd rather watch than read, check out my YouTube videos:
+
+[Windows Installation](https://youtu.be/WKq0-EHhuUw)
+
 ## Table of Contents
 
 - [Prerequisites](#prerequisites)
