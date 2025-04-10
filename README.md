@@ -45,11 +45,11 @@ Options:
       --rate-limit <RATE_LIMIT>
           Optional Rate limit in milliseconds [default: 50]
       --output-file <OUTPUT_FILE>
-
+          Optional argument to specify the output file
       --spa
-
+          Optional flag to indicate if the site is a Single-Page Application (SPA)
       --is-sitemap
-
+          Optional flag to indicate if the initial page is a sitemap.xml
       --disable-external-links
           Optional flag to disable external link checking
       --locale <LOCALE>
@@ -60,10 +60,24 @@ Options:
           Optional Anthropic API key (can also be set via ANTHROPIC_API_KEY environment variable)
       --anthropic-model <ANTHROPIC_MODEL>
           Optional Anthropic model to use for analysis [default: claude-3-haiku-20240307]
+      --use-deepseek-analyzer
+          Optional flag to enable DeepSeek API for SEO analysis
+      --deepseek-api-key <DEEPSEEK_API_KEY>
+          Optional DeepSeek API key (can also be set via DEEPSEEK_API_KEY environment variable)
+      --deepseek-model <DEEPSEEK_MODEL>
+          Optional DeepSeek model to use for analysis [default: deepseek-chat]
+      --use-openai-analyzer
+          Optional flag to enable OpenAI API for SEO analysis
+      --openai-api-key <OPENAI_API_KEY>
+          Optional OpenAI API key (can also be set via OPENAI_API_KEY environment variable)
+      --openai-model <OPENAI_MODEL>
+          Optional OpenAI model to use for analysis [default: gpt-4o]
       --user-agent <USER_AGENT>
           Optional User-Agent string for HTTP requests [default: "black-seo-analyzer v2025.1.10000"]
       --max-pages <MAX_PAGES>
           Optional maximum number of pages to crawl
+      --html-templates-dir <HTML_TEMPLATES_DIR>
+          Optional path to custom HTML templates directory
   -h, --help
           Print help
   -V, --version
@@ -97,6 +111,8 @@ black-seo-analyzer.exe --url-to-begin-crawl https://example.com --output-type ht
 ```
 Usage: black-seo-analyzer [OPTIONS] --url-to-begin-crawl <URL_TO_BEGIN_CRAWL>
 
+Usage: black-seo-analyzer.exe [OPTIONS] --url-to-begin-crawl <URL_TO_BEGIN_CRAWL>
+
 Options:
       --url-to-begin-crawl <URL_TO_BEGIN_CRAWL>
           URL of the sitemap to analyze
@@ -109,11 +125,11 @@ Options:
       --rate-limit <RATE_LIMIT>
           Optional Rate limit in milliseconds [default: 50]
       --output-file <OUTPUT_FILE>
-
+          Optional argument to specify the output file
       --spa
-
+          Optional flag to indicate if the site is a Single-Page Application (SPA)
       --is-sitemap
-
+          Optional flag to indicate if the initial page is a sitemap.xml
       --disable-external-links
           Optional flag to disable external link checking
       --locale <LOCALE>
@@ -124,10 +140,24 @@ Options:
           Optional Anthropic API key (can also be set via ANTHROPIC_API_KEY environment variable)
       --anthropic-model <ANTHROPIC_MODEL>
           Optional Anthropic model to use for analysis [default: claude-3-haiku-20240307]
+      --use-deepseek-analyzer
+          Optional flag to enable DeepSeek API for SEO analysis
+      --deepseek-api-key <DEEPSEEK_API_KEY>
+          Optional DeepSeek API key (can also be set via DEEPSEEK_API_KEY environment variable)
+      --deepseek-model <DEEPSEEK_MODEL>
+          Optional DeepSeek model to use for analysis [default: deepseek-chat]
+      --use-openai-analyzer
+          Optional flag to enable OpenAI API for SEO analysis
+      --openai-api-key <OPENAI_API_KEY>
+          Optional OpenAI API key (can also be set via OPENAI_API_KEY environment variable)
+      --openai-model <OPENAI_MODEL>
+          Optional OpenAI model to use for analysis [default: gpt-4o]
       --user-agent <USER_AGENT>
           Optional User-Agent string for HTTP requests [default: "black-seo-analyzer v2025.1.10000"]
       --max-pages <MAX_PAGES>
           Optional maximum number of pages to crawl
+      --html-templates-dir <HTML_TEMPLATES_DIR>
+          Optional path to custom HTML templates directory
   -h, --help
           Print help
   -V, --version
