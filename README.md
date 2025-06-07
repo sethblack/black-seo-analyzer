@@ -31,7 +31,9 @@ Please read the [INSTALL.md](INSTALL.md) file for installation instructions.
 ## Windows Usage
 
 ```
-Usage: black-seo-analyzer.exe [OPTIONS] --url-to-begin-crawl <URL_TO_BEGIN_CRAWL>
+A comprehensive SEO analysis tool
+
+Usage: black-seo-analyzer.exe [OPTIONS]
 
 Options:
       --url-to-begin-crawl <URL_TO_BEGIN_CRAWL>
@@ -60,24 +62,40 @@ Options:
           Optional Anthropic API key (can also be set via ANTHROPIC_API_KEY environment variable)
       --anthropic-model <ANTHROPIC_MODEL>
           Optional Anthropic model to use for analysis [default: claude-3-haiku-20240307]
+      --anthropic-prompt-file <ANTHROPIC_PROMPT_FILE>
+          Optional path to a file containing a custom Anthropic prompt
       --use-deepseek-analyzer
           Optional flag to enable DeepSeek API for SEO analysis
       --deepseek-api-key <DEEPSEEK_API_KEY>
           Optional DeepSeek API key (can also be set via DEEPSEEK_API_KEY environment variable)
       --deepseek-model <DEEPSEEK_MODEL>
           Optional DeepSeek model to use for analysis [default: deepseek-chat]
+      --deepseek-prompt-file <DEEPSEEK_PROMPT_FILE>
+          Optional path to a file containing a custom DeepSeek prompt
       --use-openai-analyzer
           Optional flag to enable OpenAI API for SEO analysis
       --openai-api-key <OPENAI_API_KEY>
           Optional OpenAI API key (can also be set via OPENAI_API_KEY environment variable)
       --openai-model <OPENAI_MODEL>
           Optional OpenAI model to use for analysis [default: gpt-4o]
+      --openai-prompt-file <OPENAI_PROMPT_FILE>
+          Optional path to a file containing a custom OpenAI prompt
+      --use-gemini-analyzer
+          Optional flag to enable Google Gemini API for SEO analysis
+      --gemini-api-key <GEMINI_API_KEY>
+          Optional Google Gemini API key (can also be set via GEMINI_API_KEY environment variable)
+      --gemini-model <GEMINI_MODEL>
+          Optional Google Gemini model to use for analysis [default: gemini-1.5-flash-latest]
+      --gemini-prompt-file <GEMINI_PROMPT_FILE>
+          Optional path to a file containing a custom Google Gemini prompt
       --user-agent <USER_AGENT>
-          Optional User-Agent string for HTTP requests [default: "black-seo-analyzer v2025.1.10000"]
+          Optional User-Agent string for HTTP requests [default: "black-seo-analyzer v25.6.61905"]
       --max-pages <MAX_PAGES>
           Optional maximum number of pages to crawl
       --html-templates-dir <HTML_TEMPLATES_DIR>
           Optional path to custom HTML templates directory
+      --headless
+          Run in headless mode without launching the GUI [experimental] defaults to true
   -h, --help
           Print help
   -V, --version
@@ -109,9 +127,9 @@ black-seo-analyzer.exe --url-to-begin-crawl https://example.com --output-type ht
 ## Linux/MacOS Usage
 
 ```
-Usage: black-seo-analyzer [OPTIONS] --url-to-begin-crawl <URL_TO_BEGIN_CRAWL>
+A comprehensive SEO analysis tool
 
-Usage: black-seo-analyzer.exe [OPTIONS] --url-to-begin-crawl <URL_TO_BEGIN_CRAWL>
+Usage: black-seo-analyzer [OPTIONS]
 
 Options:
       --url-to-begin-crawl <URL_TO_BEGIN_CRAWL>
@@ -140,24 +158,40 @@ Options:
           Optional Anthropic API key (can also be set via ANTHROPIC_API_KEY environment variable)
       --anthropic-model <ANTHROPIC_MODEL>
           Optional Anthropic model to use for analysis [default: claude-3-haiku-20240307]
+      --anthropic-prompt-file <ANTHROPIC_PROMPT_FILE>
+          Optional path to a file containing a custom Anthropic prompt
       --use-deepseek-analyzer
           Optional flag to enable DeepSeek API for SEO analysis
       --deepseek-api-key <DEEPSEEK_API_KEY>
           Optional DeepSeek API key (can also be set via DEEPSEEK_API_KEY environment variable)
       --deepseek-model <DEEPSEEK_MODEL>
           Optional DeepSeek model to use for analysis [default: deepseek-chat]
+      --deepseek-prompt-file <DEEPSEEK_PROMPT_FILE>
+          Optional path to a file containing a custom DeepSeek prompt
       --use-openai-analyzer
           Optional flag to enable OpenAI API for SEO analysis
       --openai-api-key <OPENAI_API_KEY>
           Optional OpenAI API key (can also be set via OPENAI_API_KEY environment variable)
       --openai-model <OPENAI_MODEL>
           Optional OpenAI model to use for analysis [default: gpt-4o]
+      --openai-prompt-file <OPENAI_PROMPT_FILE>
+          Optional path to a file containing a custom OpenAI prompt
+      --use-gemini-analyzer
+          Optional flag to enable Google Gemini API for SEO analysis
+      --gemini-api-key <GEMINI_API_KEY>
+          Optional Google Gemini API key (can also be set via GEMINI_API_KEY environment variable)
+      --gemini-model <GEMINI_MODEL>
+          Optional Google Gemini model to use for analysis [default: gemini-1.5-flash-latest]
+      --gemini-prompt-file <GEMINI_PROMPT_FILE>
+          Optional path to a file containing a custom Google Gemini prompt
       --user-agent <USER_AGENT>
-          Optional User-Agent string for HTTP requests [default: "black-seo-analyzer v2025.1.10000"]
+          Optional User-Agent string for HTTP requests [default: "black-seo-analyzer v2025.1.100001"]
       --max-pages <MAX_PAGES>
           Optional maximum number of pages to crawl
       --html-templates-dir <HTML_TEMPLATES_DIR>
           Optional path to custom HTML templates directory
+      --headless
+          Run in headless mode without launching the GUI [experimental] defaults to true
   -h, --help
           Print help
   -V, --version
