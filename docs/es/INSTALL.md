@@ -2,6 +2,10 @@
 
 Este documento proporciona instrucciones para instalar la herramienta Black SEO Analyzer en diferentes sistemas operativos.
 
+Si prefiere ver en lugar de leer, consulte mis videos de YouTube:
+
+[Instalación en Windows](https://youtu.be/WKq0-EHhuUw)
+
 ## Tabla de Contenidos
 
 - [Prerrequisitos](#prerrequisitos)
@@ -26,23 +30,37 @@ Antes de instalar Black SEO Analyzer, asegúrese de tener lo siguiente:
 
 ### Windows (Básico) {#windows-basico}
 
-1. Descargue el último ejecutable de Windows (`black-seo-analyzer.exe`) desde la [página de lanzamientos](https://github.com/sethblack/black-seo-analyzer/releases).
+#### Instalador MSI de Windows
 
-2. Mueva el archivo `black-seo-analyzer.exe` descargado a una ubicación de su elección (p. ej., `C:\Program Files\black-seo-analyzer`).
-
-3. Abra el Símbolo del sistema y navegue al directorio donde colocó el ejecutable:
-
-```cmd
-cd C:\Program Files\black-seo-analyzer
-```
-
-4. Abra el Símbolo del sistema y verifique la instalación:
+1. Descargue el último instalador MSI de Windows (`setup.msi`) desde la [página de lanzamientos](https://github.com/sethblack/black-seo-analyzer/releases).
+2. Ejecute el instalador `setup.msi`. Esto instalará la aplicación en `C:\Program Files (x86)\Black SEO Analyzer\` y la agregará al PATH de su sistema.
+3. Abra un nuevo Símbolo del sistema y verifique la instalación:
 
 ```cmd
 black-seo-analyzer --version
 ```
 
-5. Cree un archivo `license.txt` en el mismo directorio con su clave de licencia:
+4. Cree un archivo `license.txt` en el directorio de inicio de su usuario (p. ej., `C:\Users\YourUser\license.txt`) con su clave de licencia.
+
+#### Windows Portable (exe)
+
+1. Descargue el último archivo ejecutable de Windows (`black-seo-analyzer.exe`) desde la [página de lanzamientos](https://github.com/sethblack/black-seo-analyzer/releases).
+
+2. Mueva el archivo `black-seo-analyzer.exe` descargado a una ubicación de su elección (p. ej., `C:\Users\YourUser\Documents\black-seo-analyzer`).
+
+3. Abra el Símbolo del sistema y navegue al directorio donde movió el ejecutable:
+
+```cmd
+cd C:\Users\YourUser\Documents\black-seo-analyzer
+```
+
+4. Verifique la instalación:
+
+```cmd
+black-seo-analyzer --version
+```
+
+5. Cree un archivo license.txt en el mismo directorio con su clave de licencia:
 
 ```cmd
 echo "SU_CLAVE_DE_LICENCIA" > license.txt
@@ -58,19 +76,18 @@ black-seo-analyzer --url-to-begin-crawl https://example.com --output-type html-f
 
 ### macOS (Básico) {#macos-basico}
 
-1. Descargue el último binario de macOS (`black-seo-analyzer`) desde la [página de lanzamientos](https://github.com/sethblack/black-seo-analyzer/releases).
+1. Descargue el último binario de macOS desde la [página de lanzamientos](https://github.com/sethblack/black-seo-analyzer/releases).
 
-2. Mueva el binario descargado a una ubicación en su PATH (p. ej., `/usr/local/bin/`):
+2. Haga que el binario sea ejecutable:
 
 ```bash
-sudo mv /ruta/al/descargado/black-seo-analyzer /usr/local/bin/
+chmod +x <nombre_binario>
 ```
-   *(Reemplace `/ruta/al/descargado/black-seo-analyzer` con la ruta real al archivo descargado)*
 
-3. Hágalo ejecutable:
+3. Mueva el binario a una ubicación en su PATH:
 
 ```bash
-sudo chmod +x /usr/local/bin/black-seo-analyzer
+sudo mv <nombre_binario> /usr/local/bin/black-seo-analyzer
 ```
 
 4. Verifique la instalación:
@@ -79,7 +96,7 @@ sudo chmod +x /usr/local/bin/black-seo-analyzer
 black-seo-analyzer --version
 ```
 
-5. Cree un archivo `license.txt` en el mismo directorio que el binario (`/usr/local/bin/` en este ejemplo) o en su directorio de trabajo con su clave de licencia:
+6. Cree un archivo license.txt en el mismo directorio con su clave de licencia:
 
 ```bash
 echo "SU_CLAVE_DE_LICENCIA" > license.txt
@@ -95,44 +112,22 @@ black-seo-analyzer --url-to-begin-crawl https://example.com --output-type html-f
 
 ### Linux (Básico) {#linux-basico}
 
-#### Ubuntu/Debian
+1. Descargue el último binario de Linux para su arquitectura desde la [página de lanzamientos](https://github.com/sethblack/black-seo-analyzer/releases).
 
-1. Descargue el último binario de Linux (`black-seo-analyzer`) para su arquitectura desde la [página de lanzamientos](https://github.com/sethblack/black-seo-analyzer/releases).
+   - **x86_64**: Para procesadores Intel/AMD estándar de 64 bits.
+   - **arm**: Para procesadores basados en ARM, como los que se encuentran en Raspberry Pi y algunos servidores en la nube.
+   - **musl**: Una versión para entornos en contenedores (p. ej., Docker) que utiliza la biblioteca estándar de C musl.
 
-2. Mueva el binario descargado a una ubicación en su PATH (p. ej., `/usr/local/bin/`):
-
-```bash
-sudo mv /ruta/al/descargado/black-seo-analyzer /usr/local/bin/
-```
-   *(Reemplace `/ruta/al/descargado/black-seo-analyzer` con la ruta real al archivo descargado)*
-
-3. Hágalo ejecutable:
+2. Haga que el binario sea ejecutable:
 
 ```bash
-sudo chmod +x /usr/local/bin/black-seo-analyzer
+chmod +x <nombre_binario>
 ```
 
-4. Verifique la instalación:
+3. Mueva el binario a una ubicación en su PATH:
 
 ```bash
-black-seo-analyzer --version
-```
-
-#### Fedora/RHEL/CentOS
-
-1. Descargue el último binario de Linux (`black-seo-analyzer`) para su arquitectura desde la [página de lanzamientos](https://github.com/sethblack/black-seo-analyzer/releases).
-
-2. Mueva el binario descargado a una ubicación en su PATH (p. ej., `/usr/local/bin/`):
-
-```bash
-sudo mv /ruta/al/descargado/black-seo-analyzer /usr/local/bin/
-```
-   *(Reemplace `/ruta/al/descargado/black-seo-analyzer` con la ruta real al archivo descargado)*
-
-3. Hágalo ejecutable:
-
-```bash
-sudo chmod +x /usr/local/bin/black-seo-analyzer
+sudo mv <nombre_binario> /usr/local/bin/black-seo-analyzer
 ```
 
 4. Verifique la instalación:
@@ -156,19 +151,19 @@ black-seo-analyzer --url-to-begin-crawl https://example.com --output-type html-f
 
 #### Instalación Manual
 
-1. Descargue el último ejecutable de Windows (`black-seo-analyzer.exe`) desde la [página de lanzamientos](https://github.com/sethblack/black-seo-analyzer/releases).
+1. Descargue el último archivo ejecutable de Windows (`black-seo-analyzer.exe`) desde la [página de lanzamientos](https://github.com/sethblack/black-seo-analyzer/releases).
 
-2. Coloque el archivo `black-seo-analyzer.exe` descargado en una ubicación de su elección (p. ej., `C:\Program Files\black-seo-analyzer`).
+2. Mueva el archivo `black-seo-analyzer.exe` descargado a un directorio que esté incluido en el PATH de su sistema, o agregue el directorio que contiene el ejecutable a su PATH.
 
-3. Agregue el directorio que contiene el ejecutable a la variable de entorno PATH de su sistema:
+3. Para agregar la ubicación del binario a su PATH:
    - Haga clic derecho en "Este equipo" o "Mi PC" y seleccione "Propiedades"
    - Haga clic en "Configuración avanzada del sistema"
    - Haga clic en "Variables de entorno"
    - En "Variables del sistema", busque y seleccione "Path", luego haga clic en "Editar"
-   - Haga clic en "Nuevo" y agregue la ruta al directorio que contiene el ejecutable (p. ej., `C:\Program Files\black-seo-analyzer`)
+   - Haga clic en "Nuevo" y agregue la ruta al directorio que contiene el binario (p. ej., `C:\Program Files\black-seo-analyzer`)
    - Haga clic en "Aceptar" en todos los cuadros de diálogo para guardar los cambios
 
-4. Abra un *nuevo* Símbolo del sistema (los existentes no verán el PATH actualizado) y verifique la instalación:
+4. Abra un nuevo Símbolo del sistema y verifique la instalación:
 
 ```cmd
 black-seo-analyzer --version
@@ -207,7 +202,7 @@ Si encuentra errores sobre dependencias faltantes:
   ```bash
   # Ubuntu/Debian
   sudo apt-get install libssl-dev pkg-config
-
+  
   # Fedora/RHEL/CentOS
   sudo dnf install openssl-devel pkgconfig
   ```
@@ -239,10 +234,9 @@ Si encuentra problemas no cubiertos en esta guía:
 Black SEO Analyzer admite varias opciones de línea de comandos:
 
 ```
-USO:
-    black-seo-analyzer [OPCIONES] --url-to-begin-crawl <URL>
+Uso: black-seo-analyzer.exe [OPCIONES] --url-to-begin-crawl <URL_PARA_COMENZAR_RASTREO>
 
-OPCIONES:
+Opciones:
       --url-to-begin-crawl <URL_PARA_COMENZAR_RASTREO>
           URL del sitemap a analizar
       --log-file <ARCHIVO_LOG>
@@ -254,11 +248,11 @@ OPCIONES:
       --rate-limit <LIMITE_TASA>
           Límite de tasa opcional en milisegundos [predeterminado: 50]
       --output-file <ARCHIVO_SALIDA>
-
+          Argumento opcional para especificar el archivo de salida
       --spa
-
+          Indicador opcional para indicar si el sitio es una Aplicación de Página Única (SPA)
       --is-sitemap
-
+          Indicador opcional para indicar si la página inicial es un sitemap.xml
       --disable-external-links
           Indicador opcional para deshabilitar la comprobación de enlaces externos
       --locale <CONFIGURACION_REGIONAL>
@@ -269,10 +263,40 @@ OPCIONES:
           Clave API opcional de Anthropic (también se puede establecer mediante la variable de entorno ANTHROPIC_API_KEY)
       --anthropic-model <MODELO_ANTHROPIC>
           Modelo opcional de Anthropic a usar para el análisis [predeterminado: claude-3-haiku-20240307]
+      --anthropic-prompt-file <ARCHIVO_PROMPT_ANTHROPIC>
+          Ruta opcional a un archivo que contiene un prompt personalizado de Anthropic
+      --use-deepseek-analyzer
+          Indicador opcional para habilitar la API de DeepSeek para análisis SEO
+      --deepseek-api-key <CLAVE_API_DEEPSEEK>
+          Clave API opcional de DeepSeek (también se puede establecer mediante la variable de entorno DEEPSEEK_API_KEY)
+      --deepseek-model <MODELO_DEEPSEEK>
+          Modelo opcional de DeepSeek a usar para el análisis [predeterminado: deepseek-chat]
+      --deepseek-prompt-file <ARCHIVO_PROMPT_DEEPSEEK>
+          Ruta opcional a un archivo que contiene un prompt personalizado de DeepSeek
+      --use-openai-analyzer
+          Indicador opcional para habilitar la API de OpenAI para análisis SEO
+      --openai-api-key <CLAVE_API_OPENAI>
+          Clave API opcional de OpenAI (también se puede establecer mediante la variable de entorno OPENAI_API_KEY)
+      --openai-model <MODELO_OPENAI>
+          Modelo opcional de OpenAI a usar para el análisis [predeterminado: gpt-4o]
+      --openai-prompt-file <ARCHIVO_PROMPT_OPENAI>
+          Ruta opcional a un archivo que contiene un prompt personalizado de OpenAI
+      --use-gemini-analyzer
+          Indicador opcional para habilitar la API de Google Gemini para análisis SEO
+      --gemini-api-key <CLAVE_API_GEMINI>
+          Clave API opcional de Google Gemini (también se puede establecer mediante la variable de entorno GEMINI_API_KEY)
+      --gemini-model <MODELO_GEMINI>
+          Modelo opcional de Google Gemini a usar para el análisis [predeterminado: gemini-1.5-flash-latest]
+      --gemini-prompt-file <ARCHIVO_PROMPT_GEMINI>
+          Ruta opcional a un archivo que contiene un prompt personalizado de Google Gemini
       --user-agent <AGENTE_USUARIO>
-          Cadena opcional de User-Agent para solicitudes HTTP [predeterminado: "black-seo-analyzer v2025.1.10000"]
+          Cadena opcional de User-Agent para solicitudes HTTP [predeterminado: "black-seo-analyzer v25.6.61905"]
       --max-pages <MAX_PAGINAS>
           Número máximo opcional de páginas a rastrear
+      --html-templates-dir <DIRECTORIO_PLANTILLAS_HTML>
+          Ruta opcional a un directorio de plantillas HTML personalizadas
+      --headless
+          Ejecutar en modo sin cabeza sin lanzar la GUI [experimental] por defecto es true
   -h, --help
           Imprimir ayuda
   -V, --version
@@ -326,3 +350,22 @@ black-seo-analyzer --url-to-begin-crawl https://example.com --rate-limit 100
 
 ```bash
 black-seo-analyzer --url-to-begin-crawl https://example.com --locale es
+```
+
+### Uso de Plantillas HTML Personalizadas
+
+Puede proporcionar sus propias plantillas HTML para personalizar la apariencia de la salida:
+
+```bash
+black-seo-analyzer --url-to-begin-crawl https://example.com --templates-dir ./my-templates
+```
+
+El directorio de plantillas debe contener archivos de plantilla HTML con los mismos nombres que las plantillas predeterminadas:
+- base.html
+- index_file.html
+- page_file.html
+- page.html
+- preamble.html
+- postamble.html
+
+Cualquier plantilla que no se encuentre en el directorio personalizado recurrirá a las plantillas predeterminadas.

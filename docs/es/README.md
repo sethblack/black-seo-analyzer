@@ -2,15 +2,282 @@
 
 Una herramienta profesional de línea de comandos para un análisis SEO completo, diseñada para sitios web que necesitan ser encontrados tanto en los resultados de búsqueda como en las respuestas de IA.
 
-![Black SEO Analyzer](https://www.sethserver.com/static/images/black-seo-analyzer.png)
+Cuando se ejecuta sin una licencia, el número de páginas que puede rastrear es limitado, pero ninguna otra funcionalidad está restringida. Para comprar una licencia y desbloquear un poder de análisis ilimitado, visite la [página del producto Black SEO Analyzer](https://www.sethserver.com/seo/black-seo-analyzer.html).
 
-Para comprar una licencia, visite la [página del producto Black SEO Analyzer](https://www.sethserver.com/seo/black-seo-analyzer.html).
+![Black SEO Analyzer](https://www.sethserver.com/static/images/black-seo-analyzer.png)
 
 ## Descripción General
 
 Black SEO Analyzer es una potente herramienta de línea de comandos que mantiene su sitio web visible tanto en los resultados de búsqueda tradicionales como en las respuestas generadas por IA. Un buen SEO técnico no se trata solo de las clasificaciones de Google, se trata de asegurarse de que los sistemas de IA puedan encontrar y comprender su contenido cuando la gente pregunte por usted.
 
 Cuando la estructura y los metadatos de su sitio están optimizados correctamente, aparecerá tanto en los resultados de búsqueda como en las conversaciones de IA. Black SEO Analyzer elimina el ruido y le dice exactamente qué está frenando su sitio, sin palabras de moda corporativas, solo datos procesables para que no se quede atrás cuando alguien le pregunte a una IA exactamente sobre lo que vende.
+
+## Propiedad Real, No Suscripción
+
+A diferencia de las herramientas basadas en suscripción que dejan de funcionar cuando dejas de pagar, Black SEO Analyzer ofrece una propiedad genuina del software. Su compra incluye una garantía de acceso al código fuente legalmente vinculante si alguna vez descontinuamos el producto, protegiendo su inversión permanentemente.
+
+**Licencia de Black SEO Analyzer: Compra Única**
+- Propiedad del software de por vida
+- Todas las actualizaciones futuras
+- Eficiencia de línea de comandos
+- Garantía de depósito de código fuente
+- URLs y sitios ilimitados
+- Todas las funciones avanzadas incluidas
+
+## Instalación
+
+Por favor, lea el archivo [INSTALL.md](INSTALL.md) para obtener instrucciones de instalación.
+
+## Uso en Windows
+
+```
+Una herramienta completa de análisis SEO
+
+Uso: black-seo-analyzer.exe [OPCIONES]
+
+Opciones:
+      --url-to-begin-crawl <URL_PARA_COMENZAR_RASTREO>
+          URL del sitemap a analizar
+      --log-file <ARCHIVO_LOG>
+          Ruta al archivo de registro
+      --output-type <TIPO_SALIDA>
+          Tipo de formato de salida [predeterminado: html-folder] [valores posibles: json, jsonl, xml, csv, csv-flat, html-folder, json-files]
+      --concurrent-requests <SOLICITUDES_CONCURRENTES>
+          Número opcional de solicitudes concurrentes a realizar [predeterminado: 20]
+      --rate-limit <LIMITE_TASA>
+          Límite de tasa opcional en milisegundos [predeterminado: 50]
+      --output-file <ARCHIVO_SALIDA>
+          Argumento opcional para especificar el archivo de salida
+      --spa
+          Indicador opcional para indicar si el sitio es una Aplicación de Página Única (SPA)
+      --is-sitemap
+          Indicador opcional para indicar si la página inicial es un sitemap.xml
+      --disable-external-links
+          Indicador opcional para deshabilitar la comprobación de enlaces externos
+      --locale <CONFIGURACION_REGIONAL>
+          Configuración regional opcional para internacionalización [predeterminado: en]
+      --use-anthropic-analyzer
+          Indicador opcional para habilitar la API de Anthropic Claude para análisis SEO
+      --anthropic-api-key <CLAVE_API_ANTHROPIC>
+          Clave API opcional de Anthropic (también se puede establecer mediante la variable de entorno ANTHROPIC_API_KEY)
+      --anthropic-model <MODELO_ANTHROPIC>
+          Modelo opcional de Anthropic a usar para el análisis [predeterminado: claude-3-haiku-20240307]
+      --anthropic-prompt-file <ARCHIVO_PROMPT_ANTHROPIC>
+          Ruta opcional a un archivo que contiene un prompt personalizado de Anthropic
+      --use-deepseek-analyzer
+          Indicador opcional para habilitar la API de DeepSeek para análisis SEO
+      --deepseek-api-key <CLAVE_API_DEEPSEEK>
+          Clave API opcional de DeepSeek (también se puede establecer mediante la variable de entorno DEEPSEEK_API_KEY)
+      --deepseek-model <MODELO_DEEPSEEK>
+          Modelo opcional de DeepSeek a usar para el análisis [predeterminado: deepseek-chat]
+      --deepseek-prompt-file <ARCHIVO_PROMPT_DEEPSEEK>
+          Ruta opcional a un archivo que contiene un prompt personalizado de DeepSeek
+      --use-openai-analyzer
+          Indicador opcional para habilitar la API de OpenAI para análisis SEO
+      --openai-api-key <CLAVE_API_OPENAI>
+          Clave API opcional de OpenAI (también se puede establecer mediante la variable de entorno OPENAI_API_KEY)
+      --openai-model <MODELO_OPENAI>
+          Modelo opcional de OpenAI a usar para el análisis [predeterminado: gpt-4o]
+      --openai-prompt-file <ARCHIVO_PROMPT_OPENAI>
+          Ruta opcional a un archivo que contiene un prompt personalizado de OpenAI
+      --use-gemini-analyzer
+          Indicador opcional para habilitar la API de Google Gemini para análisis SEO
+      --gemini-api-key <CLAVE_API_GEMINI>
+          Clave API opcional de Google Gemini (también se puede establecer mediante la variable de entorno GEMINI_API_KEY)
+      --gemini-model <MODELO_GEMINI>
+          Modelo opcional de Google Gemini a usar para el análisis [predeterminado: gemini-1.5-flash-latest]
+      --gemini-prompt-file <ARCHIVO_PROMPT_GEMINI>
+          Ruta opcional a un archivo que contiene un prompt personalizado de Google Gemini
+      --user-agent <AGENTE_USUARIO>
+          Cadena opcional de User-Agent para solicitudes HTTP [predeterminado: "black-seo-analyzer v25.6.61905"]
+      --max-pages <MAX_PAGINAS>
+          Número máximo opcional de páginas a rastrear
+      --html-templates-dir <DIRECTORIO_PLANTILLAS_HTML>
+          Ruta opcional a un directorio de plantillas HTML personalizadas
+      --headless
+          Ejecutar en modo sin cabeza sin lanzar la GUI [experimental] por defecto es true
+  -h, --help
+          Imprimir ayuda
+  -V, --version
+          Imprimir versión
+```
+
+### Ejemplo de Uso en Windows
+
+#### Salida JSON básica para un sitio
+```bash
+black-seo-analyzer.exe --url-to-begin-crawl https://example.com --output-type json --output-file example-report.json
+```
+
+#### Sitio web con un sitemap
+```bash
+black-seo-analyzer.exe --url-to-begin-crawl https://example.com/sitemap.xml --is-sitemap --output-type json --output-file sitemap-report.json
+```
+
+#### Aplicación de página única
+```bash
+black-seo-analyzer.exe --url-to-begin-crawl https://spa-example.com --spa --output-type json --output-file spa-report.json
+```
+
+#### Salida de carpeta HTML
+```bash
+black-seo-analyzer.exe --url-to-begin-crawl https://example.com --output-type html-folder --output-file ./seo-reports
+```
+
+## Uso en Linux/MacOS
+
+```
+Una herramienta completa de análisis SEO
+
+Uso: black-seo-analyzer [OPCIONES]
+
+Opciones:
+      --url-to-begin-crawl <URL_PARA_COMENZAR_RASTREO>
+          URL del sitemap a analizar
+      --log-file <ARCHIVO_LOG>
+          Ruta al archivo de registro
+      --output-type <TIPO_SALIDA>
+          Tipo de formato de salida [predeterminado: html-folder] [valores posibles: json, jsonl, xml, csv, csv-flat, html-folder, json-files]
+      --concurrent-requests <SOLICITUDES_CONCURRENTES>
+          Número opcional de solicitudes concurrentes a realizar [predeterminado: 20]
+      --rate-limit <LIMITE_TASA>
+          Límite de tasa opcional en milisegundos [predeterminado: 50]
+      --output-file <ARCHIVO_SALIDA>
+          Argumento opcional para especificar el archivo de salida
+      --spa
+          Indicador opcional para indicar si el sitio es una Aplicación de Página Única (SPA)
+      --is-sitemap
+          Indicador opcional para indicar si la página inicial es un sitemap.xml
+      --disable-external-links
+          Indicador opcional para deshabilitar la comprobación de enlaces externos
+      --locale <CONFIGURACION_REGIONAL>
+          Configuración regional opcional para internacionalización [predeterminado: en]
+      --use-anthropic-analyzer
+          Indicador opcional para habilitar la API de Anthropic Claude para análisis SEO
+      --anthropic-api-key <CLAVE_API_ANTHROPIC>
+          Clave API opcional de Anthropic (también se puede establecer mediante la variable de entorno ANTHROPIC_API_KEY)
+      --anthropic-model <MODELO_ANTHROPIC>
+          Modelo opcional de Anthropic a usar para el análisis [predeterminado: claude-3-haiku-20240307]
+      --anthropic-prompt-file <ARCHIVO_PROMPT_ANTHROPIC>
+          Ruta opcional a un archivo que contiene un prompt personalizado de Anthropic
+      --use-deepseek-analyzer
+          Indicador opcional para habilitar la API de DeepSeek para análisis SEO
+      --deepseek-api-key <CLAVE_API_DEEPSEEK>
+          Clave API opcional de DeepSeek (también se puede establecer mediante la variable de entorno DEEPSEEK_API_KEY)
+      --deepseek-model <MODELO_DEEPSEEK>
+          Modelo opcional de DeepSeek a usar para el análisis [predeterminado: deepseek-chat]
+      --deepseek-prompt-file <ARCHIVO_PROMPT_DEEPSEEK>
+          Ruta opcional a un archivo que contiene un prompt personalizado de DeepSeek
+      --use-openai-analyzer
+          Indicador opcional para habilitar la API de OpenAI para análisis SEO
+      --openai-api-key <CLAVE_API_OPENAI>
+          Clave API opcional de OpenAI (también se puede establecer mediante la variable de entorno OPENAI_API_KEY)
+      --openai-model <MODELO_OPENAI>
+          Modelo opcional de OpenAI a usar para el análisis [predeterminado: gpt-4o]
+      --openai-prompt-file <ARCHIVO_PROMPT_OPENAI>
+          Ruta opcional a un archivo que contiene un prompt personalizado de OpenAI
+      --use-gemini-analyzer
+          Indicador opcional para habilitar la API de Google Gemini para análisis SEO
+      --gemini-api-key <CLAVE_API_GEMINI>
+          Clave API opcional de Google Gemini (también se puede establecer mediante la variable de entorno GEMINI_API_KEY)
+      --gemini-model <MODELO_GEMINI>
+          Modelo opcional de Google Gemini a usar para el análisis [predeterminado: gemini-1.5-flash-latest]
+      --gemini-prompt-file <ARCHIVO_PROMPT_GEMINI>
+          Ruta opcional a un archivo que contiene un prompt personalizado de Google Gemini
+      --user-agent <AGENTE_USUARIO>
+          Cadena opcional de User-Agent para solicitudes HTTP [predeterminado: "black-seo-analyzer v2025.1.100001"]
+      --max-pages <MAX_PAGINAS>
+          Número máximo opcional de páginas a rastrear
+      --html-templates-dir <DIRECTORIO_PLANTILLAS_HTML>
+          Ruta opcional a un directorio de plantillas HTML personalizadas
+      --headless
+          Ejecutar en modo sin cabeza sin lanzar la GUI [experimental] por defecto es true
+  -h, --help
+          Imprimir ayuda
+  -V, --version
+          Imprimir versión
+```
+
+### Ejemplo de Uso en Linux/MacOS
+
+Notas:
+
+* Si el binario no es ejecutable, es posible que primero deba ejecutar `chmod +x ./black-seo-analyzer`.
+* Los ejemplos a continuación asumen que el binario está en el directorio actual. Si está en un directorio diferente, deberá proporcionar la ruta completa al binario o, si está en su PATH, simplemente puede ejecutar `black-seo-analyzer`.
+
+#### Salida JSON básica para un sitio
+```bash
+./black-seo-analyzer --url-to-begin-crawl https://example.com --output-type json --output-file example-report.json
+```
+
+#### Sitio web con un sitemap
+```bash
+./black-seo-analyzer.exe --url-to-begin-crawl https://example.com/sitemap.xml --is-sitemap --output-type json --output-file sitemap-report.json
+```
+
+#### Aplicación de página única
+```bash
+./black-seo-analyzer.exe --url-to-begin-crawl https://spa-example.com --spa --output-type json --output-file spa-report.json
+```
+
+#### Salida de carpeta HTML
+```bash
+./black-seo-analyzer.exe --url-to-begin-crawl https://example.com --output-type html-folder --output-file ./seo-reports
+```
+
+## Aplicaciones del Mundo Real
+
+### Monitoreo SEO Automatizado
+
+```bash
+# Auditoría semanal del sitio con notificación por correo electrónico para problemas críticos
+0 0 * * 1 /usr/local/bin/black-seo-analyzer.exe --url-to-begin-crawl example.com --output-type json \
+| /usr/local/bin/seo-alert-filter \
+| mail -s "Informe SEO Semanal" team@example.com
+```
+
+### Integración en Pipeline CI/CD
+
+```yaml
+# En su flujo de trabajo de GitHub Actions
+seo_validation:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v3
+    - name: Ejecutar Análisis SEO
+      run: |
+        black-seo-analyzer.exe --url-to-begin-crawl https://staging.example.com \
+        --output-type json --output-file seo-report.json
+    - name: Validar Elementos SEO Críticos
+      run: |
+        cat seo-report.json | jq '.pages[] | select(.errors | length > 0)' > critical-errors.json
+        if [ -s critical-errors.json ]; then
+          echo "La validación SEO falló - ver critical-errors.json"
+          exit 1
+        fi
+```
+
+### Análisis Masivo de Sitios
+
+```bash
+# Analizar múltiples sitios y combinar informes
+for site in site1.com site2.com site3.com; do
+  black-seo-analyzer.exe --url-to-begin-crawl $site --output-type json --output-file "${site}.json"
+done
+
+# Combinar resultados para comparación
+jq -s '[.[] | {site: .site, score: .score, errorCount: .errorCount}]' *.json > summary.json
+```
+
+### Flujo de Trabajo de Optimización de Contenido
+
+```bash
+# Extraer todas las etiquetas H1 y meta descripciones para revisión de contenido
+black-seo-analyzer.exe --url-to-begin-crawl example.com --output-type csv-flat \
+| grep -E "(h1|meta_description)" \
+| sort -t',' -k2 \
+> content-review.csv
+```
 
 ## Lista Completa de Funciones
 
@@ -191,212 +458,7 @@ Cuando la estructura y los metadatos de su sitio están optimizados correctament
 - Envoltorio de serialización de URL personalizado
 - Utilidad para crear nombres de archivo seguros a partir de URLs
 - Análisis de argumentos de línea de comandos
-- Motor de plantillas
-
-## Propiedad Real, No Suscripción
-
-A diferencia de las herramientas basadas en suscripción que dejan de funcionar cuando dejas de pagar, Black SEO Analyzer ofrece una propiedad genuina del software. Su compra incluye una garantía de acceso al código fuente legalmente vinculante si alguna vez descontinuamos el producto, protegiendo su inversión permanentemente.
-
-**Licencia de Black SEO Analyzer: Compra Única**
-- Propiedad del software de por vida
-- Todas las actualizaciones futuras
-- Eficiencia de línea de comandos
-- Garantía de depósito de código fuente
-- URLs y sitios ilimitados
-- Todas las funciones avanzadas incluidas
-
-## Instalación
-
-1. Descargue el ejecutable apropiado para su sistema operativo desde la [página de lanzamientos](https://github.com/sethblack/black-seo-analyzer/releases).
-2. Haga que el archivo sea ejecutable (Linux/macOS): `chmod +x .\black-seo-analyzer`
-3. Muévalo a un directorio en su PATH para un fácil acceso (opcional)
-
-## Uso en Windows
-
-```
-Uso: black-seo-analyzer.exe [OPCIONES] --url-to-begin-crawl <URL_PARA_COMENZAR_RASTREO>
-
-Opciones:
-      --url-to-begin-crawl <URL_PARA_COMENZAR_RASTREO>
-          URL del sitemap a analizar
-      --log-file <ARCHIVO_LOG>
-          Ruta al archivo de registro
-      --output-type <TIPO_SALIDA>
-          Tipo de formato de salida [predeterminado: html-folder] [valores posibles: json, jsonl, xml, csv, csv-flat, html-folder, json-files]
-      --concurrent-requests <SOLICITUDES_CONCURRENTES>
-          Número opcional de solicitudes concurrentes a realizar [predeterminado: 20]
-      --rate-limit <LIMITE_TASA>
-          Límite de tasa opcional en milisegundos [predeterminado: 50]
-      --output-file <ARCHIVO_SALIDA>
-
-      --spa
-
-      --is-sitemap
-
-      --disable-external-links
-          Indicador opcional para deshabilitar la comprobación de enlaces externos
-      --locale <CONFIGURACION_REGIONAL>
-          Configuración regional opcional para internacionalización [predeterminado: en]
-      --use-anthropic-analyzer
-          Indicador opcional para habilitar la API de Anthropic Claude para análisis SEO
-      --anthropic-api-key <CLAVE_API_ANTHROPIC>
-          Clave API opcional de Anthropic (también se puede establecer mediante la variable de entorno ANTHROPIC_API_KEY)
-      --anthropic-model <MODELO_ANTHROPIC>
-          Modelo opcional de Anthropic a usar para el análisis [predeterminado: claude-3-haiku-20240307]
-      --user-agent <AGENTE_USUARIO>
-          Cadena opcional de User-Agent para solicitudes HTTP [predeterminado: "black-seo-analyzer v2025.1.10000"]
-      --max-pages <MAX_PAGINAS>
-          Número máximo opcional de páginas a rastrear
-  -h, --help
-          Imprimir ayuda
-  -V, --version
-          Imprimir versión
-```
-
-### Ejemplo de Uso en Windows
-
-#### Salida JSON básica para un sitio
-```bash
-black-seo-analyzer.exe --url-to-begin-crawl https://example.com --output-type json --output-file example-report.json
-```
-
-#### Sitio web con un sitemap
-```bash
-black-seo-analyzer.exe --url-to-begin-crawl https://example.com/sitemap.xml --is-sitemap --output-type json --output-file sitemap-report.json
-```
-
-#### Aplicación de página única
-```bash
-black-seo-analyzer.exe --url-to-begin-crawl https://spa-example.com --spa --output-type json --output-file spa-report.json
-```
-
-#### Salida de carpeta HTML
-```bash
-black-seo-analyzer.exe --url-to-begin-crawl https://example.com --output-type html-folder --output-file ./seo-reports
-```
-
-## Uso en Linux/MacOS
-
-```
-Uso: black-seo-analyzer [OPCIONES] --url-to-begin-crawl <URL_PARA_COMENZAR_RASTREO>
-
-Opciones:
-      --url-to-begin-crawl <URL_PARA_COMENZAR_RASTREO>
-          URL del sitemap a analizar
-      --log-file <ARCHIVO_LOG>
-          Ruta al archivo de registro
-      --output-type <TIPO_SALIDA>
-          Tipo de formato de salida [predeterminado: html-folder] [valores posibles: json, jsonl, xml, csv, csv-flat, html-folder, json-files]
-      --concurrent-requests <SOLICITUDES_CONCURRENTES>
-          Número opcional de solicitudes concurrentes a realizar [predeterminado: 20]
-      --rate-limit <LIMITE_TASA>
-          Límite de tasa opcional en milisegundos [predeterminado: 50]
-      --output-file <ARCHIVO_SALIDA>
-
-      --spa
-
-      --is-sitemap
-
-      --disable-external-links
-          Indicador opcional para deshabilitar la comprobación de enlaces externos
-      --locale <CONFIGURACION_REGIONAL>
-          Configuración regional opcional para internacionalización [predeterminado: en]
-      --use-anthropic-analyzer
-          Indicador opcional para habilitar la API de Anthropic Claude para análisis SEO
-      --anthropic-api-key <CLAVE_API_ANTHROPIC>
-          Clave API opcional de Anthropic (también se puede establecer mediante la variable de entorno ANTHROPIC_API_KEY)
-      --anthropic-model <MODELO_ANTHROPIC>
-          Modelo opcional de Anthropic a usar para el análisis [predeterminado: claude-3-haiku-20240307]
-      --user-agent <AGENTE_USUARIO>
-          Cadena opcional de User-Agent para solicitudes HTTP [predeterminado: "black-seo-analyzer v2025.1.10000"]
-      --max-pages <MAX_PAGINAS>
-          Número máximo opcional de páginas a rastrear
-  -h, --help
-          Imprimir ayuda
-  -V, --version
-          Imprimir versión
-```
-
-### Ejemplo de Uso en Linux/MacOS
-
-Notas:
-
-* Si el binario no es ejecutable, es posible que primero deba ejecutar `chmod +x ./black-seo-analyzer`.
-* Los ejemplos a continuación asumen que el binario está en el directorio actual. Si está en un directorio diferente, deberá proporcionar la ruta completa al binario o, si está en su PATH, simplemente puede ejecutar `black-seo-analyzer`.
-
-#### Salida JSON básica para un sitio
-```bash
-./black-seo-analyzer --url-to-begin-crawl https://example.com --output-type json --output-file example-report.json
-```
-
-#### Sitio web con un sitemap
-```bash
-./black-seo-analyzer --url-to-begin-crawl https://example.com/sitemap.xml --is-sitemap --output-type json --output-file sitemap-report.json
-```
-
-#### Aplicación de página única
-```bash
-./black-seo-analyzer --url-to-begin-crawl https://spa-example.com --spa --output-type json --output-file spa-report.json
-```
-
-#### Salida de carpeta HTML
-```bash
-./black-seo-analyzer --url-to-begin-crawl https://example.com --output-type html-folder --output-file ./seo-reports
-```
-
-## Aplicaciones del Mundo Real
-
-### Monitoreo SEO Automatizado
-
-```bash
-# Auditoría semanal del sitio con notificación por correo electrónico para problemas críticos
-0 0 * * 1 /usr/local/bin/black-seo-analyzer --url-to-begin-crawl example.com --output-type json \
-| /usr/local/bin/seo-alert-filter \
-| mail -s "Informe SEO Semanal" team@example.com
-```
-
-### Integración en Pipeline CI/CD
-
-```yaml
-# En su flujo de trabajo de GitHub Actions
-seo_validation:
-  runs-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v3
-    - name: Ejecutar Análisis SEO
-      run: |
-        black-seo-analyzer --url-to-begin-crawl https://staging.example.com \
-        --output-type json --output-file seo-report.json
-    - name: Validar Elementos SEO Críticos
-      run: |
-        cat seo-report.json | jq '.pages[] | select(.errors | length > 0)' > critical-errors.json
-        if [ -s critical-errors.json ]; then
-          echo "La validación SEO falló - ver critical-errors.json"
-          exit 1
-        fi
-```
-
-### Análisis Masivo de Sitios
-
-```bash
-# Analizar múltiples sitios y combinar informes
-for site in site1.com site2.com site3.com; do
-  black-seo-analyzer --url-to-begin-crawl $site --output-type json --output-file "${site}.json"
-done
-
-# Combinar resultados para comparación
-jq -s '[.[] | {site: .site, score: .score, errorCount: .errorCount}]' *.json > summary.json
-```
-
-### Flujo de Trabajo de Optimización de Contenido
-
-```bash
-# Extraer todas las etiquetas H1 y meta descripciones para revisión de contenido
-black-seo-analyzer --url-to-begin-crawl example.com --output-type csv-flat \
-| grep -E "(h1|meta_description)" \
-| sort -t',' -k2 \
-> content-review.csv
-```
+- Motor de plantillas para la generación de informes HTML
 
 ## Preguntas Frecuentes
 
