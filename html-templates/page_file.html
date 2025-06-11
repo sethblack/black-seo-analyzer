@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO Analysis - {{ url }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 20px; color: #333; }
+        h1, h2, h3 { color: #2c3e50; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .page-header { margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .warning { background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 10px; margin-bottom: 10px; }
+        .resource-section { margin-top: 30px; }
+        .resource-list { list-style-type: none; padding: 0; }
+        .resource-item { background-color: #f8f9fa; padding: 8px; margin-bottom: 5px; border-radius: 4px; word-break: break-all; }
+        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .metric-card { background-color: #f8f9fa; padding: 15px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .metric-label { font-size: 14px; color: #6c757d; margin-bottom: 5px; }
+        .metric-value { font-size: 20px; font-weight: bold; color: #2c3e50; }
+        a { color: #007bff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        
+        /* Social Preview Styles */
+        .social-preview-section { margin: 30px 0; }
+        .social-preview-card { 
+            border: 1px solid #ddd; 
+            border-radius: 8px; 
+            overflow: hidden; 
+            max-width: 500px; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .social-preview-image { 
+            width: 100%; 
+            height: 260px; 
+            background-color: #f0f0f0; 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+        }
+        .social-preview-content { padding: 15px; }
+        .social-preview-title { 
+            font-size: 16px; 
+            font-weight: bold; 
+            margin-bottom: 5px; 
+            color: #1a1a1a;
+        }
+        .social-preview-description { 
+            font-size: 14px; 
+            color: #4b4f56; 
+            margin-bottom: 5px;
+        }
+        .social-preview-url { 
+            font-size: 12px; 
+            color: #606770; 
+            text-transform: uppercase;
+        }
+        .social-preview-label {
+            display: inline-block;
+            padding: 3px 8px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-bottom: 10px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1>SEO Analysis for {{ url }}</h1>
+            <p><a href="{{ url }}" target="_blank">{{ url }}</a></p>
+            <p><a href="../index.html">Back to Summary</a></p>
+        </div>
+        
+        {{ page_content | safe }}
+    </div>
+</body>
+</html>

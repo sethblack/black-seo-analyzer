@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO Analysis Summary</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 20px; color: #333; }
+        h1, h2, h3 { color: #2c3e50; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .summary-header { margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; margin-bottom: 40px; }
+        .metric-card { background-color: #f8f9fa; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .metric-label { font-size: 16px; color: #6c757d; margin-bottom: 8px; }
+        .metric-value { font-size: 28px; font-weight: bold; color: #2c3e50; }
+        .top-pages { margin-top: 30px; }
+        .page-list { list-style-type: none; padding: 0; }
+        .page-item { background-color: #f8f9fa; padding: 15px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .page-url { display: block; margin-bottom: 5px; word-break: break-all; }
+        .issue-count { font-weight: bold; color: #dc3545; }
+        a { color: #007bff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .date { color: #6c757d; font-size: 14px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="summary-header">
+            <h1>SEO Analysis Summary</h1>
+            <p class="date">Generated on {{ date }}</p>
+        </div>
+        
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-label">Pages Analyzed</div>
+                <div class="metric-value">{{ total_pages }}</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-label">Total Issues</div>
+                <div class="metric-value">{{ total_issues }}</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-label">Average Issues Per Page</div>
+                <div class="metric-value">{{ avg_issues | round(precision=2) }}</div>
+            </div>
+        </div>
+        
+        <div class="top-pages">
+            <h2>Top Pages with Most Issues</h2>
+            <ul class="page-list">
+                {% for page in top_pages %}
+                <li class="page-item">
+                    <a href="pages/{{ page.filename }}.html" class="page-url">{{ page.url }}</a>
+                    <span class="issue-count">{{ page.issues }} issues</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+        <div class="all-pages">
+            <h2>All Pages by Path Depth</h2>
+            <ul class="page-list">
+                {% for page in sorted_pages %}
+                <li class="page-item">
+                    <a href="pages/{{ page.filename }}.html" class="page-url">{{ page.url }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

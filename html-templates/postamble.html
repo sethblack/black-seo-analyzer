@@ -1,0 +1,21 @@
+</div>
+    </div>
+<script>
+function pushPage(url, content_hash) {
+    var tocList = document.getElementById('toc-list');
+    var tocItem = document.createElement('li');
+    var tocLink = document.createElement('a');
+    tocLink.href = '#' + content_hash;
+    tocLink.textContent = url;
+    tocLink.className = 'toc-link';
+    tocItem.className = 'toc-item';
+    tocItem.appendChild(tocLink);
+    tocList.appendChild(tocItem);
+}
+
+{% for page in pages %}
+pushPage('{{ page.url }}', '{{ page.content_hash }}');
+{% endfor %}
+</script>
+</body>
+</html>

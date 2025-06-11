@@ -1,0 +1,239 @@
+<div class="page-container">
+    <header class="page-header">
+        <h1 class="page-title">Page Analysis Report</h1>
+        <div class="page-meta">
+            <a href="{{ url }}" class="page-url" target="_blank" rel="noopener noreferrer">{{ url }}</a>
+            <span class="analysis-date">{{ date | default(value="No date available") }}</span>
+        </div>
+    </header>
+
+    {% if has_social_media %}
+    <section class="social-preview-section">
+        <h2>Social Media Previews</h2>
+        
+        {% if og_title or og_description or og_image %}
+        <div>
+            <span class="social-preview-label">Facebook / Open Graph</span>
+            <div class="social-preview-card">
+                {% if og_image %}
+                <div class="social-preview-image" style="background-image: url('{{ og_image }}')"></div>
+                {% else %}
+                <div class="social-preview-image">No image available</div>
+                {% endif %}
+                <div class="social-preview-content">
+                    <div class="social-preview-title">{{ og_title | default(value=title) | default(value="No title") }}</div>
+                    <div class="social-preview-description">{{ og_description | default(value=description) | default(value="No description") }}</div>
+                    <div class="social-preview-url">{{ hostname | default(value="example.com") }}</div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        {% if twitter_title or twitter_description or twitter_image %}
+        <div>
+            <span class="social-preview-label">Twitter</span>
+            <div class="social-preview-card">
+                {% if twitter_image %}
+                <div class="social-preview-image" style="background-image: url('{{ twitter_image }}')"></div>
+                {% else %}
+                <div class="social-preview-image">No image available</div>
+                {% endif %}
+                <div class="social-preview-content">
+                    <div class="social-preview-title">{{ twitter_title | default(value=title) | default(value="No title") }}</div>
+                    <div class="social-preview-description">{{ twitter_description | default(value=description) | default(value="No description") }}</div>
+                    <div class="social-preview-url">{{ hostname | default(value="example.com") }}</div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </section>
+    {% endif %}
+
+    <section class="summary-section">
+        <h2>Summary</h2>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-label">Total Words</div>
+                <div class="metric-value">{{ total_word_count }}</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Internal Links</div>
+                <div class="metric-value">{{ internal_links | length }}</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">External Links</div>
+                <div class="metric-value">{{ external_links | length }}</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Images</div>
+                <div class="metric-value">{{ images | length }}</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Scripts</div>
+                <div class="metric-value">{{ scripts | length }}</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Stylesheets</div>
+                <div class="metric-value">{{ stylesheets | length }}</div>
+            </div>
+            {% if ssl_expiration_date %}
+            <div class="metric-card">
+                <div class="metric-label">SSL Expiration</div>
+                <div class="metric-value">{{ ssl_expiration_date }}</div>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+
+    {% if warnings and warnings | length > 0 %}
+    <section class="warnings-section">
+        <h2>Warnings</h2>
+        <ul class="warnings-list">
+            {% for warning in warnings %}
+            <li class="warning-item">{{ warning }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+
+    <section class="resources-section">
+        <h2>Resources</h2>
+
+        {% if internal_links and internal_links | length > 0 %}
+        <div class="resource-group">
+            <h3>Internal Links</h3>
+            <ul class="resource-list">
+                {% for link in internal_links %}
+                <li class="resource-item">
+                    <a href="{{ link }}" target="_blank" rel="noopener noreferrer">{{ link }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if external_links and external_links | length > 0 %}
+        <div class="resource-group">
+            <h3>External Links</h3>
+            <ul class="resource-list">
+                {% for link in external_links %}
+                <li class="resource-item">
+                    <a href="{{ link }}" target="_blank" rel="noopener noreferrer">{{ link }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if stylesheets and stylesheets | length > 0 %}
+        <div class="resource-group">
+            <h3>Stylesheets</h3>
+            <ul class="resource-list">
+                {% for stylesheet in stylesheets %}
+                <li class="resource-item">
+                    <a href="{{ stylesheet }}" target="_blank" rel="noopener noreferrer">{{ stylesheet }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if scripts and scripts | length > 0 %}
+        <div class="resource-group">
+            <h3>Scripts</h3>
+            <ul class="resource-list">
+                {% for script in scripts %}
+                <li class="resource-item">
+                    <a href="{{ script }}" target="_blank" rel="noopener noreferrer">{{ script }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if images and images | length > 0 %}
+        <div class="resource-group">
+            <h3>Images</h3>
+            <ul class="resource-list">
+                {% for image in images %}
+                <li class="resource-item">
+                    <a href="{{ image }}" target="_blank" rel="noopener noreferrer">{{ image }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </section>
+
+    {% if has_anthropic_analysis %}
+    <section class="anthropic-analysis-section">
+        <h2>AI-Powered SEO Analysis</h2>
+        <div class="anthropic-recommendations">
+            <h3>Recommendations</h3>
+            <ul class="recommendations-list">
+                {% for recommendation in anthropic_analysis.recommendations %}
+                <li class="recommendation-item">{{ recommendation }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="anthropic-raw-response">
+            <h3>Detailed Analysis</h3>
+            <div class="raw-response-content">
+                <pre>{{ anthropic_analysis.raw_response }}</pre>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+</div>
+
+<style>
+.anthropic-analysis-section {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.anthropic-recommendations {
+    margin-bottom: 1.5rem;
+}
+
+.recommendations-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.recommendation-item {
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    background-color: #fff;
+    border-left: 4px solid #4a6cf7;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.anthropic-raw-response {
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+}
+
+.raw-response-content {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.raw-response-content pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: monospace;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    padding: 1rem;
+    background-color: #f5f7f9;
+    border-radius: 4px;
+    margin: 0;
+}
+</style>
