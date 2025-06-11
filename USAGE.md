@@ -148,12 +148,12 @@ seo-analyzer --url-to-begin-crawl "https://www.example.com" --html-templates-dir
 ```
 
 The templates directory should contain HTML template files with the same names as the default templates:
-- [html-templates/base.html](base.html)
-- [html-templates/index_file.html](index_file.html)
-- [html-templates/page_file.html](page_file.html)
-- [html-templates/page.html](page.html)
-- [html-templates/preamble.html](preamble.html)
-- [html-templates/postamble.html](postamble.html)
+- [./html-templates/base.html](base.html)
+- [./html-templates/index_file.html](index_file.html)
+- [./html-templates/page_file.html](page_file.html)
+- [./html-templates/page.html](page.html)
+- [./html-templates/preamble.html](preamble.html)
+- [./html-templates/postamble.html](postamble.html)
 
 Any templates not found in the custom directory will fall back to the default templates. Examples can be found in the `html-templates` directory.
 
@@ -251,10 +251,10 @@ seo-analyzer --url-to-begin-crawl "https://www.large-website.com" --max-pages 50
 
 You can enhance the SEO analysis with AI models from various providers. This requires enabling the specific provider and providing an API key. The default prompts can be found in the `llm-prompts` directory.
 
-[llm-prompts/anthropic.txt](llm-prompts/anthropic.txt)
-[llm-prompts/deepseek.txt](llm-prompts/deepseek.txt)
-[llm-prompts/openai.txt](llm-prompts/openai.txt)
-[llm-prompts/gemini.txt](llm-prompts/gemini.txt)
+- [llm-prompts/anthropic.txt](llm-prompts/anthropic.txt)
+- [llm-prompts/deepseek.txt](llm-prompts/deepseek.txt)
+- [llm-prompts/openai.txt](llm-prompts/openai.txt)
+- [llm-prompts/gemini.txt](llm-prompts/gemini.txt)
 
 ### Anthropic Claude
 
