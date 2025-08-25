@@ -40,40 +40,6 @@ Before installing Black SEO Analyzer, ensure you have the following:
 black-seo-analyzer --version
 ```
 
-4. Create a `license.txt` file in your user's home directory (e.g., `C:\Users\YourUser\license.txt`) with your license key.
-
-#### Windows Portable (exe)
-
-1. Download the latest Windows executable file (`black-seo-analyzer.exe`) from the [releases page](https://github.com/sethblack/black-seo-analyzer/releases).
-
-2. Move the downloaded `black-seo-analyzer.exe` to a location of your choice (e.g., `C:\Users\YourUser\Documents\black-seo-analyzer`).
-
-3. Open Command Prompt and navigate to the directory where you moved the executable:
-
-```cmd
-cd C:\Users\YourUser\Documents\black-seo-analyzer
-```
-
-4. Verify the installation:
-
-```cmd
-black-seo-analyzer --version
-```
-
-5. Create a license.txt file in the same directory with your license key:
-
-```cmd
-echo "YOUR_LICENSE_KEY" > license.txt
-```
-
-#### Quick Start Example
-
-Analyze a website and generate an HTML report:
-
-```cmd
-black-seo-analyzer --url-to-begin-crawl https://example.com --output-type html-folder
-```
-
 ### macOS (Basic) {#macos-basic}
 
 1. Download the latest macOS binary from the [releases page](https://github.com/sethblack/black-seo-analyzer/releases).
@@ -94,20 +60,6 @@ sudo mv <binary_name> /usr/local/bin/black-seo-analyzer
 
 ```bash
 black-seo-analyzer --version
-```
-
-6. Create a license.txt file in the same directory with your license key:
-
-```bash
-echo "YOUR_LICENSE_KEY" > license.txt
-```
-
-#### Quick Start Example
-
-Analyze a website and generate an HTML report:
-
-```bash
-black-seo-analyzer --url-to-begin-crawl https://example.com --output-type html-folder
 ```
 
 ### Linux (Basic) {#linux-basic}

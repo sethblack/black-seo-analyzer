@@ -5,133 +5,191 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Website Analyzer</title>
     <style>
+        :root {
+            --primary-dark: #264653;
+            --primary-teal: #2A9D8F;
+            --accent-gold: #E9C46A;
+            --accent-orange: #F4A261;
+            --accent-coral: #E76F51;
+            --text-primary: #264653;
+            --text-secondary: #5a6c7d;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafb;
+            --bg-tertiary: #f1f5f8;
+            --border-color: #e1e8ed;
+            --shadow-sm: 0 1px 3px rgba(38, 70, 83, 0.08);
+            --shadow-md: 0 4px 6px rgba(38, 70, 83, 0.1);
+            --shadow-lg: 0 10px 15px rgba(38, 70, 83, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            background-color: #f3f4f6;
-            padding: 32px;
+            background-color: var(--bg-secondary);
+            padding: 0;
             margin: 0;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.5;
+            line-height: 1.6;
+            color: var(--text-primary);
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 40px 20px;
         }
 
         .page-header {
-            margin-bottom: 32px;
+            text-align: center;
+            margin-bottom: 48px;
+            padding-bottom: 32px;
+            border-bottom: 2px solid var(--border-color);
         }
 
         .page-title {
-            font-size: 1.875rem;
-            font-weight: bold;
-            color: #111827;
-            margin-bottom: 8px;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
         }
 
         .page-description {
-            color: #6b7280;
-            margin-bottom: 24px;
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            margin-bottom: 0;
         }
 
         .toc {
-            background-color: white;
-            padding: 24px;
-            border-radius: 8px;
-            margin-bottom: 32px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            background-color: var(--bg-primary);
+            padding: 32px;
+            border-radius: 12px;
+            margin-bottom: 48px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .toc .section-title {
+            color: var(--primary-dark);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .toc-list {
             list-style: none;
             padding: 0;
             margin: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 12px;
         }
 
         .toc-item {
-            margin-bottom: 12px;
-        }
-
-        .toc-item:last-child {
-            margin-bottom: 0;
+            margin: 0;
         }
 
         .toc-link {
-            color: #2563eb;
+            color: var(--text-primary);
             text-decoration: none;
-            display: inline-block;
-            padding: 8px 12px;
-            background-color: #f3f4f6;
-            border-radius: 4px;
-            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background-color: var(--bg-tertiary);
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+            font-weight: 500;
         }
 
         .toc-link:hover {
-            background-color: #e5e7eb;
-            text-decoration: underline;
+            background-color: var(--bg-primary);
+            border-color: var(--primary-teal);
+            color: var(--primary-teal);
+            box-shadow: var(--shadow-sm);
         }
 
         .page-url {
-            color: #2563eb;
+            color: var(--primary-teal);
             text-decoration: none;
             font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
         }
 
         .page-url:hover {
+            color: var(--primary-dark);
             text-decoration: underline;
         }
 
         .page-container {
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            padding: 24px;
+            background-color: var(--bg-primary);
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            padding: 40px;
             margin-bottom: 48px;
+            border: 1px solid var(--border-color);
         }
 
         .section {
-            margin-bottom: 32px;
+            margin-bottom: 40px;
         }
 
         .section-title {
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             font-weight: 600;
-            color: #111827;
-            margin-bottom: 16px;
+            color: var(--primary-dark);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .metrics-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 16px;
+            gap: 20px;
             margin-bottom: 32px;
         }
 
         .metric-card {
-            background-color: white;
-            padding: 16px;
-            border-radius: 8px;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            background-color: var(--bg-secondary);
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
         }
 
         .metric-title {
             font-size: 0.875rem;
-            color: #6b7280;
+            color: var(--text-secondary);
             margin-bottom: 8px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .metric-value {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #111827;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            line-height: 1.2;
         }
 
         .warning {
-            background-color: #fef3c7;
-            padding: 12px;
+            background-color: #fef8e7;
+            padding: 16px 20px;
             border-radius: 8px;
-            margin-bottom: 8px;
-            color: #92400e;
+            margin-bottom: 12px;
+            color: var(--primary-dark);
+            border-left: 4px solid var(--accent-orange);
+            font-weight: 500;
         }
 
         .resource-list {
@@ -139,31 +197,49 @@
         }
 
         .resource-item {
-            background-color: #f9fafb;
-            padding: 12px;
+            background-color: var(--bg-tertiary);
+            padding: 14px 18px;
             border-radius: 8px;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             word-break: break-all;
             font-size: 0.875rem;
-            color: #4b5563;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+            font-family: 'Monaco', 'Consolas', monospace;
+        }
+
+        .resource-item:hover {
+            background-color: var(--bg-secondary);
+            border-color: var(--primary-teal);
         }
 
         .more-items {
             font-size: 0.875rem;
-            color: #6b7280;
-            margin-top: 8px;
+            color: var(--text-secondary);
+            margin-top: 12px;
+            font-style: italic;
         }
 
         .error-message {
-            background-color: #fee2e2;
-            padding: 16px;
+            background-color: #fef2f2;
+            padding: 20px;
             border-radius: 8px;
-            color: #b91c1c;
+            color: var(--accent-coral);
+            border-left: 4px solid var(--accent-coral);
+            font-weight: 500;
         }
 
         .page-separator {
-            border-top: 1px solid #e5e7eb;
-            margin: 48px 0;
+            border: none;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--border-color), transparent);
+            margin: 60px 0;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
         }
     </style>
 </head>
@@ -172,10 +248,10 @@
         <div id="content">
             <div class="page-header">
                 <h1 class="page-title">Website Analysis Report</h1>
+                <p class="page-description">Generated on {{ date }}</p>
             </div>
-            <p class="page-description">Generated on {{ date }}</p>
             <div class="toc">
-                <h2 class="section-title">Pages Analyzed:</h2>
+                <h2 class="section-title">Pages Analyzed</h2>
                 <ul class="toc-list" id="toc-list">
                 </ul>
             </div>
