@@ -1,25 +1,25 @@
 # Black SEO Analyzer
 
-A professional tool for comprehensive SEO analysis, designed for SEO professionals that need their sites to be found in both search results and AI answers.
+A professional command-line tool for comprehensive SEO analysis, designed for websites that need to be found in both search results and AI answers.
 
-When run without a license you're limited in the number of pages you can crawl, but no other functionality is restricted. To purchase a license and unlock unlimited analysis power, visit [Black SEO Analyzer product page](https://www.blackseoanalyzer.com/).
+When run without a license you're limited in the number of pages you can crawl, but no other functionality is restricted. To purchase a license and unlock unlimited analysis power, visit [Black SEO Analyzer product page](https://www.sethserver.com/seo/black-seo-analyzer.html).
 
 ![Black SEO Analyzer](https://www.sethserver.com/static/images/black-seo-analyzer.png)
 
 ## Overview
 
-Black SEO Analyzer is a powerful command-line tool that keeps your website visible in both traditional search results and AI-generated responses. Good technical SEO isn't just about Google rankings - it's about making sure people can find your content when they need it.
+Black SEO Analyzer is a powerful command-line tool that keeps your website visible in both traditional search results and AI-generated responses. Good technical SEO isn't just about Google rankings—it's about making sure AI systems can find and understand your content when people ask about you.
 
-When your site's structure and metadata are optimized correctly, you'll appear in both search results and AI conversations. Black SEO Analyzer cuts through the noise and tells you exactly what's holding your site back - without buzzwords, just actionable data how you need it.
+When your site's structure and metadata are optimized correctly, you'll appear in both search results and AI conversations. Black SEO Analyzer cuts through the noise and tells you exactly what's holding your site back - without corporate buzzwords, just actionable data so you don't get left behind when someone asks an AI about exactly what you sell.
 
-## True Ownership
+## True Ownership, Not Subscription
 
-I'm tired of subscription-based tools that stop working when you stop paying. Black SEO Analyzer offers old-school (think the 80's and 90's) software ownership. Your purchase includes a legally-binding source code access guarantee if I ever discontinue the product - protecting your investment permanently.
+Unlike subscription-based tools that stop working when you stop paying, Black SEO Analyzer offers genuine software ownership. Your purchase includes a legally-binding source code access guarantee if we ever discontinue the product — protecting your investment permanently.
 
 **Black SEO Analyzer License: One-Time Purchase**
 - Lifetime software ownership
 - All future updates
-- Command-line and GUI access with the same license
+- Command-line efficiency
 - Source code escrow guarantee
 - Unlimited URLs and sites
 - All advanced features included
@@ -28,100 +28,7 @@ I'm tired of subscription-based tools that stop working when you stop paying. Bl
 
 Please read the [INSTALL.md](INSTALL.md) file for installation instructions.
 
-## Windows and Mac GUI
-
-On Windows and Mac, Black SEO Analyzer includes a native graphical interface that provides an intuitive command-line experience within a modern, dark-themed window. The GUI offers the same powerful functionality as the command-line version with additional conveniences for GUI users.
-
-### GUI Features
-
-**Dark Theme Interface**
-- Sweet-looking dark color scheme optimized for extended viewing
-- Color-coded output with full ANSI escape sequence support
-- Real-time streaming output with automatic scrolling
-
-**Intelligent Command Input**
-- **Command History**: Navigate previous commands with Up/Down arrow keys
-- **Auto-completion**: Type-ahead suggestions for all built-in commands
-  - Accept with Tab or Right Arrow
-  - Covers commands like `crawl`, `set`, `show config`, `export`, `license`, etc.
-- **Smart Focus**: Type anywhere in the window—input field automatically receives focus
-- **Command Echo**: All executed commands displayed in yellow with `>` prompt
-
-**Native Integration**
-- **File Dialogs**: Save/load configuration files with standard dialogs
-- **Folder Browser**: Native folder selection for output directories
-- **Icons & Graphics**: Application icon and modern UI elements
-- **Clipboard Support**: Copy output text to clipboard
-
-**Configuration Management**
-All configuration options accessible through text commands. For example:
-```
-set url https://example.com
-set output-dir C:\SEO\Reports
-set concurrent-requests 20
-set rate-limit 100
-show config
-save my-config.json
-```
-
-**Supported Commands in GUI**
-- `help` - Display comprehensive command help
-- `version` - Show application version
-- `crawl [url]` - Start SEO analysis
-- `set <option> <value>` - Configure settings
-- `show config` - Display current configuration
-- `save [filename]` - Save configuration to JSON
-- `load [filename]` - Load configuration from JSON
-- `license [key]` - Set or check license status
-- `list crawls` - View all previous crawl sessions
-- `export <session_id> [format]` - Export crawl results from database
-- `clear` - Clear output display
-- `exit` / `quit` - Close application
-
-**Real-Time Crawl Feedback**
-- Live output streaming as crawler analyzes pages
-- Color-coded status messages (errors in red, success in green, warnings in yellow)
-- Progress updates with page counts and timing information
-
-**Database Operations**
-- List all previous crawl sessions with details (session ID, URL, dates, page count)
-- Export any previous crawl to various formats (JSON, XML, CSV, HTML)
-- Pre-export diagnostics with detailed error reporting
-- SQLite database managed automatically in output directory
-
-**AI Integration Support**
-Configure AI-powered analysis directly from GUI:
-- Anthropic Claude (claude-3-5-sonnet-20241022 default)
-- OpenAI GPT (gpt-4o default)
-- DeepSeek (deepseek-chat default)
-- Google Gemini (gemini-2.0-flash-exp default)
-
-Set API keys and custom prompts via commands:
-```
-set anthropic-api-key YOUR_KEY
-set openai-model gpt-4o
-set anthropic-prompt-file prompts\custom-seo.txt
-```
-
-**Semantic Analysis**
-Enable vector-based semantic content analysis:
-```
-set enable-semantic-analysis true
-set semantic-query "e-commerce best practices"
-set semantic-similarity-threshold 0.75
-```
-
-### GUI Benefits Over Command-Line
-
-- **Visual Feedback**: See colorized output in real-time
-- **Easier Configuration**: Set options with simple commands rather than long parameter lists
-- **Persistent Settings**: Save/load configuration files with dialog boxes
-- **History Navigation**: Recall previous commands instantly
-- **Auto-completion**: Discover commands as you type
-- **Database Browsing**: List and export previous crawls interactively
-- **No Terminal Required**: Self-contained application window
-
-## Windows CLI Usage
+## Windows Usage
 
 ```
 A comprehensive SEO analysis tool
@@ -195,7 +102,7 @@ Options:
           Print version
 ```
 
-### Windows CLI Example Usage
+### Windows Example Usage
 
 #### Basic JSON output for one site
 ```bash
@@ -217,7 +124,7 @@ black-seo-analyzer.exe --url-to-begin-crawl https://spa-example.com --spa --outp
 black-seo-analyzer.exe --url-to-begin-crawl https://example.com --output-type html-folder --output-file ./seo-reports
 ```
 
-## Linux/MacOS CLI Usage
+## Linux/MacOS Usage
 
 ```
 A comprehensive SEO analysis tool
@@ -291,7 +198,7 @@ Options:
           Print version
 ```
 
-### Linux/MacOS CLI Example Usage
+### Linux/MacOS Example Usage
 
 Notes:
 
@@ -305,24 +212,77 @@ Notes:
 
 #### Website with a sitemap
 ```bash
-./black-seo-analyzer --url-to-begin-crawl https://example.com/sitemap.xml --is-sitemap --output-type json --output-file sitemap-report.json
+./black-seo-analyzer.exe --url-to-begin-crawl https://example.com/sitemap.xml --is-sitemap --output-type json --output-file sitemap-report.json
 ```
 
 #### Single page app
 ```bash
-./black-seo-analyzer --url-to-begin-crawl https://spa-example.com --spa --output-type json --output-file spa-report.json
+./black-seo-analyzer.exe --url-to-begin-crawl https://spa-example.com --spa --output-type json --output-file spa-report.json
 ```
 
 #### HTML folder output
 ```bash
-./black-seo-analyzer --url-to-begin-crawl https://example.com --output-type html-folder --output-file ./seo-reports
+./black-seo-analyzer.exe --url-to-begin-crawl https://example.com --output-type html-folder --output-file ./seo-reports
+```
+
+## Real-World Applications
+
+### Automated SEO Monitoring
+
+```bash
+# Weekly site audit with email notification for critical issues
+0 0 * * 1 /usr/local/bin/black-seo-analyzer.exe --url-to-begin-crawl example.com --output-type json \
+| /usr/local/bin/seo-alert-filter \
+| mail -s "Weekly SEO Report" team@example.com
+```
+
+### CI/CD Pipeline Integration
+
+```yaml
+# In your GitHub Actions workflow
+seo_validation:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v3
+    - name: Run SEO Analysis
+      run: |
+        black-seo-analyzer.exe --url-to-begin-crawl https://staging.example.com \
+        --output-type json --output-file seo-report.json
+    - name: Validate Critical SEO Elements
+      run: |
+        cat seo-report.json | jq '.pages[] | select(.errors | length > 0)' > critical-errors.json
+        if [ -s critical-errors.json ]; then
+          echo "SEO validation failed - see critical-errors.json"
+          exit 1
+        fi
+```
+
+### Bulk Site Analysis
+
+```bash
+# Analyze multiple sites and combine reports
+for site in site1.com site2.com site3.com; do
+  black-seo-analyzer.exe --url-to-begin-crawl $site --output-type json --output-file "${site}.json"
+done
+
+# Combine results for comparison
+jq -s '[.[] | {site: .site, score: .score, errorCount: .errorCount}]' *.json > summary.json
+```
+
+### Content Optimization Workflow
+
+```bash
+# Extract all H1 tags and meta descriptions for content review
+black-seo-analyzer.exe --url-to-begin-crawl example.com --output-type csv-flat \
+| grep -E "(h1|meta_description)" \
+| sort -t',' -k2 \
+> content-review.csv
 ```
 
 ## Comprehensive Feature List
 
 ### Core Functionality
 - Command-line interface
-- Windows GUI with native dialogs and dark theme
 - Crawl websites starting from a specified URL
 - Crawl websites using a sitemap
 - Support for both static websites (HTTP requests) and Single Page Applications (SPAs) via headless browser
@@ -463,6 +423,7 @@ Notes:
 - JSONL (JSON Lines) output format
 - XML output format
 - CSV output format
+- HTML report format
 - Individual JSON files per page
 - HTML folder output with index and individual page reports
 
@@ -489,7 +450,6 @@ Notes:
 
 ### Technical Details
 - Built with Rust
-- Windows GUI built with MFC (Microsoft Foundation Classes)
 - Asynchronous architecture
 - HTML parsing and DOM manipulation
 - Headless Chrome integration
@@ -513,9 +473,3 @@ Yes, our integrated headless browser technology provides full JavaScript renderi
 
 **How are updates handled?**  
 Updates are provided via our GitHub repository and can be downloaded at any time. You'll receive all future updates at no additional cost. Life-time ownership.
-
-**Does the Windows version have a GUI?**  
-Yes! Both Windows and Mac have intuitive command-line interfaces built within a modern, dark-themed window. The GUI includes command history, auto-completion, native file dialogs, and real-time color-coded output. You can still use the traditional command-line interface if you prefer.
-
-**Can I use both the GUI and command-line versions?**  
-Absolutely. Both share the same configuration files and database, so you can switch between them seamlessly even across platforms.
