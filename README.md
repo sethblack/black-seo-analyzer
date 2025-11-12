@@ -1,14 +1,14 @@
 # Black SEO Analyzer
 
-A professional command-line tool for comprehensive SEO analysis, designed for websites that need to be found in both search results and AI answers.
+A powerful tool for comprehensive SEO analysis, designed for SEO professionals and developers who want to ensure their websites are optimized for both search engines and AI systems.
 
-When run without a license you're limited in the number of pages you can crawl, but no other functionality is restricted. To purchase a license and unlock unlimited analysis power, visit [Black SEO Analyzer product page](https://www.sethserver.com/seo/black-seo-analyzer.html).
+When run without a license you're limited in the number of pages you can crawl, but no other functionality is restricted. To purchase a license and unlock unlimited analysis power, visit [Black SEO Analyzer product page](https://www.blackseoanalyzer.com/).
 
 ![Black SEO Analyzer](https://www.sethserver.com/static/images/black-seo-analyzer.png)
 
 ## Overview
 
-Black SEO Analyzer is a powerful command-line tool that keeps your website visible in both traditional search results and AI-generated responses. Good technical SEO isn't just about Google rankings—it's about making sure AI systems can find and understand your content when people ask about you.
+Black SEO Analyzer is a powerful tool that keeps your website visible in both traditional search results and AI-generated responses. Good technical SEO isn't just about Google rankings—it's about making sure AI systems can find and understand your content when people ask about you.
 
 When your site's structure and metadata are optimized correctly, you'll appear in both search results and AI conversations. Black SEO Analyzer cuts through the noise and tells you exactly what's holding your site back - without corporate buzzwords, just actionable data so you don't get left behind when someone asks an AI about exactly what you sell.
 
@@ -94,8 +94,6 @@ Options:
           Optional maximum number of pages to crawl
       --html-templates-dir <HTML_TEMPLATES_DIR>
           Optional path to custom HTML templates directory
-      --headless
-          Run in headless mode without launching the GUI [experimental] defaults to true
   -h, --help
           Print help
   -V, --version
@@ -190,8 +188,6 @@ Options:
           Optional maximum number of pages to crawl
       --html-templates-dir <HTML_TEMPLATES_DIR>
           Optional path to custom HTML templates directory
-      --headless
-          Run in headless mode without launching the GUI [experimental] defaults to true
   -h, --help
           Print help
   -V, --version
@@ -225,64 +221,11 @@ Notes:
 ./black-seo-analyzer.exe --url-to-begin-crawl https://example.com --output-type html-folder --output-file ./seo-reports
 ```
 
-## Real-World Applications
-
-### Automated SEO Monitoring
-
-```bash
-# Weekly site audit with email notification for critical issues
-0 0 * * 1 /usr/local/bin/black-seo-analyzer.exe --url-to-begin-crawl example.com --output-type json \
-| /usr/local/bin/seo-alert-filter \
-| mail -s "Weekly SEO Report" team@example.com
-```
-
-### CI/CD Pipeline Integration
-
-```yaml
-# In your GitHub Actions workflow
-seo_validation:
-  runs-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v3
-    - name: Run SEO Analysis
-      run: |
-        black-seo-analyzer.exe --url-to-begin-crawl https://staging.example.com \
-        --output-type json --output-file seo-report.json
-    - name: Validate Critical SEO Elements
-      run: |
-        cat seo-report.json | jq '.pages[] | select(.errors | length > 0)' > critical-errors.json
-        if [ -s critical-errors.json ]; then
-          echo "SEO validation failed - see critical-errors.json"
-          exit 1
-        fi
-```
-
-### Bulk Site Analysis
-
-```bash
-# Analyze multiple sites and combine reports
-for site in site1.com site2.com site3.com; do
-  black-seo-analyzer.exe --url-to-begin-crawl $site --output-type json --output-file "${site}.json"
-done
-
-# Combine results for comparison
-jq -s '[.[] | {site: .site, score: .score, errorCount: .errorCount}]' *.json > summary.json
-```
-
-### Content Optimization Workflow
-
-```bash
-# Extract all H1 tags and meta descriptions for content review
-black-seo-analyzer.exe --url-to-begin-crawl example.com --output-type csv-flat \
-| grep -E "(h1|meta_description)" \
-| sort -t',' -k2 \
-> content-review.csv
-```
-
 ## Comprehensive Feature List
 
 ### Core Functionality
 - Command-line interface
+- GUI interface
 - Crawl websites starting from a specified URL
 - Crawl websites using a sitemap
 - Support for both static websites (HTTP requests) and Single Page Applications (SPAs) via headless browser
@@ -449,7 +392,7 @@ black-seo-analyzer.exe --url-to-begin-crawl example.com --output-type csv-flat \
 - Different license tiers affecting functionality
 
 ### Technical Details
-- Built with Rust
+- Built in Rust and C++
 - Asynchronous architecture
 - HTML parsing and DOM manipulation
 - Headless Chrome integration
@@ -463,7 +406,7 @@ black-seo-analyzer.exe --url-to-begin-crawl example.com --output-type csv-flat \
 ## Frequently Asked Questions
 
 **What makes Black SEO Analyzer different from other SEO tools?**  
-Unlike traditional SEO tools with browser-based interfaces and subscription models, Black SEO Analyzer is a command-line tool that integrates directly into your development workflow. This approach enables automation capabilities that aren't possible with other tools, plus you genuinely own the software with a one-time purchase.
+Unlike traditional SEO tools with browser-based interfaces and subscription models, Black SEO Analyzer is a tool that integrates directly into your development workflow. This approach enables automation capabilities that aren't possible with other tools, plus you genuinely own the software with a one-time purchase.
 
 **How does the source code guarantee work?**  
 Your purchase includes a legally-binding commitment that gives you access to the full source code if we ever discontinue the product, cease operations, or fail to provide updates for 12+ consecutive months. This ensures you can continue using the software indefinitely, regardless of our company's future.
