@@ -1,6 +1,6 @@
 # Installing Black SEO Analyzer
 
-This document provides instructions for installing the Black SEO Analyzer tool on different operating systems.
+This document provides instructions for installing Black SEO Analyzer on different operating systems.
 
 If you'd rather watch than read, check out my YouTube videos:
 
@@ -8,7 +8,6 @@ If you'd rather watch than read, check out my YouTube videos:
 
 ## Table of Contents
 
-- [Prerequisites](#prerequisites)
 - [Basic Installation](#basic-installation)
   - [Windows](#windows-basic)
   - [macOS](#macos-basic)
@@ -17,14 +16,6 @@ If you'd rather watch than read, check out my YouTube videos:
   - [Windows](#windows-advanced)
 - [Verifying Installation](#verifying-installation)
 - [Troubleshooting](#troubleshooting)
-
-## Prerequisites
-
-Before installing Black SEO Analyzer, ensure you have the following:
-
-- Internet connection for downloading the tool
-- Basic familiarity with command-line interfaces (for basic installation)
-- Administrator/sudo privileges (may be required for some installation methods)
 
 ## Basic Installation
 
@@ -43,7 +34,7 @@ Before installing Black SEO Analyzer, ensure you have the following:
 
 ### macOS (Basic) {#macos-basic}
 
-1. Download the latest macOS DMG from the [releases page](https://github.com/sethblack/black-seo-analyzer/releases).
+1. Download the latest macOS DMG (`Black SEO Analyzer.dmg`) from the [releases page](https://github.com/sethblack/black-seo-analyzer/releases) or from the [official website](https://www.blackseoanalyzer.com/).
 
 2. Open the downloaded DMG file and drag the `Black SEO Analyzer` application to your Applications folder.
 
@@ -86,7 +77,6 @@ black-seo-analyzer --url-to-begin-crawl https://example.com --output-type html-f
 ## Advanced Installation
 
 ### Windows (Advanced) {#windows-advanced}
-
 
 #### Manual Installation
 
