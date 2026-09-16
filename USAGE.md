@@ -137,7 +137,7 @@ A file named `report.json` will be created.
 
 ### `--html-templates-dir`
 
-Specifies a path to a directory containing custom HTML templates for the report. This allows you to customize the look and feel of the `html-folder` output.
+Specifies a path to a directory containing replacements for the built-in HTML report templates. This allows you to customize the look and feel of the HTML output.
 
 - **Type:** `String`
 - **Optional**
@@ -147,15 +147,19 @@ Specifies a path to a directory containing custom HTML templates for the report.
 seo-analyzer --url-to-begin-crawl "https://www.example.com" --html-templates-dir "./my-custom-templates"
 ```
 
-The templates directory should contain HTML template files with the same names as the default templates:
-- [base.html](html-templates/base.html)
-- [index_file.html](html-templates/index_file.html)
-- [page_file.html](html-templates/page_file.html)
-- [page.html](html-templates/page.html)
-- [preamble.html](html-templates/preamble.html)
-- [postamble.html](html-templates/postamble.html)
+The `export` subcommand takes the same flag, so an existing crawl can be re-rendered against a changed template without crawling again.
 
-Any templates not found in the custom directory will fall back to the default templates. Examples can be found in the `html-templates` directory.
+The directory is read by filename. These are the names that are recognized:
+
+- [index_file.html](html-templates/index_file.html) — `index.html`, the crawl summary
+- [page_file.html](html-templates/page_file.html) — the wrapper document for each file under `pages/`
+- [page.html](html-templates/page.html) — the per-page report body, and the whole document for single-page output
+- [sitemap_graph.html](html-templates/sitemap_graph.html) — `--output-type sitemap`
+- [topic_cluster_graph.html](html-templates/topic_cluster_graph.html) — `--output-type topic-cluster`
+
+Supply only the ones you want to change; anything the directory does not contain falls back to the built-in copy. A directory that does not exist, or that contains none of these filenames, is rejected with an error rather than ignored, and a template that fails to parse aborts the export and names the file it came from.
+
+The templates themselves live in [html-templates](html-templates), and [html-templates/README.md](html-templates/README.md) documents the template engine and the variables each one receives.
 
 ---
 

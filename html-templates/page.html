@@ -3,6 +3,9 @@
         <h1 class="page-title">Page Analysis Report</h1>
         <div class="page-meta">
             <a href="{{ url }}" class="page-url" target="_blank" rel="noopener noreferrer">{{ title }}</a>
+            {% if date %}
+            <span class="analysis-date">{{ date }}</span>
+            {% endif %}
         </div>
     </header>
 
@@ -127,7 +130,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for analysis in keyword_analysis | slice(end=50) %}
+                    {% for analysis in keyword_analysis[:50] %}
                     <tr>
                         <td>{{ analysis.keyword }}</td>
                         <td>{{ analysis.score | round(precision=4) }}</td>
@@ -154,6 +157,58 @@
             </li>
             {% endfor %}
         </ul>
+    </section>
+    {% endif %}
+
+    {% if has_accessibility_analysis %}
+    <section class="accessibility-analysis-section">
+        <h2>Accessibility Analysis (WCAG 2.1)</h2>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-label">Accessibility Score</div>
+                <div class="metric-value">{{ accessibility_analysis.score | round(precision=1) }}</div>
+            </div>
+        </div>
+        
+        {% if accessibility_analysis.violations and accessibility_analysis.violations | length > 0 %}
+        <div class="violations-group">
+            <h3>Violations</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Guideline</th>
+                        <th>Message</th>
+                        <th>Element</th>
+                        <th>Location</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for violation in accessibility_analysis.violations %}
+                    <tr>
+                        <td>
+                            <strong>{{ violation.guideline }}</strong>
+                            <br><small class="violation-key">{{ violation.key }}</small>
+                            {% if violation.link %}
+                            <br><a href="{{ violation.link }}" target="_blank" rel="noopener noreferrer">Docs</a>
+                            {% endif %}
+                        </td>
+                        <td>{{ violation.message }}</td>
+                        <td><code>{{ violation.element | truncate(length=100) }}</code></td>
+                        <td>
+                            {% if violation.location %}
+                            Line: {{ violation.location.line }}, Col: {{ violation.location.column }}
+                            {% else %}
+                            N/A
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="success-message">No accessibility violations found!</p>
+        {% endif %}
     </section>
     {% endif %}
 
@@ -229,7 +284,7 @@
 
     {% if has_anthropic_analysis %}
     <section class="anthropic-analysis-section">
-        <h2>AI-Powered SEO Analysis</h2>
+        <h2>AI-Powered SEO Analysis (Anthropic)</h2>
         <div class="anthropic-recommendations">
             <h3>Recommendations</h3>
             <ul class="recommendations-list">
@@ -242,6 +297,66 @@
             <h3>Detailed Analysis</h3>
             <div class="raw-response-content">
                 <pre>{{ anthropic_analysis.raw_response }}</pre>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    {% if has_deepseek_analysis %}
+    <section class="deepseek-analysis-section">
+        <h2>AI-Powered SEO Analysis (DeepSeek)</h2>
+        <div class="deepseek-recommendations">
+            <h3>Recommendations</h3>
+            <ul class="recommendations-list">
+                {% for recommendation in deepseek_analysis.recommendations %}
+                <li class="recommendation-item">{{ recommendation | safe }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="deepseek-raw-response">
+            <h3>Detailed Analysis</h3>
+            <div class="raw-response-content">
+                <pre>{{ deepseek_analysis.raw_response }}</pre>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    {% if has_openai_analysis %}
+    <section class="openai-analysis-section">
+        <h2>AI-Powered SEO Analysis (OpenAI)</h2>
+        <div class="openai-recommendations">
+            <h3>Recommendations</h3>
+            <ul class="recommendations-list">
+                {% for recommendation in openai_analysis.recommendations %}
+                <li class="recommendation-item">{{ recommendation | safe }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="openai-raw-response">
+            <h3>Detailed Analysis</h3>
+            <div class="raw-response-content">
+                {{ openai_analysis.raw_response | safe }}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    {% if has_gemini_analysis %}
+    <section class="gemini-analysis-section">
+        <h2>AI-Powered SEO Analysis (Gemini)</h2>
+        <div class="gemini-recommendations">
+            <h3>Recommendations</h3>
+            <ul class="recommendations-list">
+                {% for recommendation in gemini_analysis.recommendations %}
+                <li class="recommendation-item">{{ recommendation | safe }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="gemini-raw-response">
+            <h3>Detailed Analysis</h3>
+            <div class="raw-response-content">
+                <pre>{{ gemini_analysis.raw_response }}</pre>
             </div>
         </div>
     </section>
@@ -517,7 +632,10 @@ h3 {
     color: var(--primary-teal);
 }
 
-.anthropic-analysis-section {
+.anthropic-analysis-section,
+.deepseek-analysis-section,
+.openai-analysis-section,
+.gemini-analysis-section {
     background-color: var(--bg-secondary);
     padding: 32px;
     border-radius: 12px;
@@ -525,7 +643,10 @@ h3 {
     border: 1px solid var(--border-color);
 }
 
-.anthropic-recommendations {
+.anthropic-recommendations,
+.deepseek-recommendations,
+.openai-recommendations,
+.gemini-recommendations {
     margin-bottom: 32px;
 }
 
@@ -545,7 +666,10 @@ h3 {
     font-weight: 500;
 }
 
-.anthropic-raw-response {
+.anthropic-raw-response,
+.deepseek-raw-response,
+.openai-raw-response,
+.gemini-raw-response {
     background-color: var(--bg-primary);
     border-radius: 8px;
     box-shadow: var(--shadow-sm);

@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black SEO Analyzer Site Crawl Map</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f7fa;
+            overflow: hidden;
+        }
+        
+        #container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+        }
+        
+        #sidebar {
+            width: 350px;
+            background: white;
+            border-right: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        
+        #main {
+            flex: 1;
+            position: relative;
+        }
+        
+        #graph { 
+            width: 100%; 
+            height: 100%; 
+        }
+        
+        .sidebar-section {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .sidebar-section h3 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 12px;
+        }
+        
+        .control-group {
+            margin-bottom: 15px;
+        }
+        
+        .control-group label {
+            display: block;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        
+        .control-group select,
+        .control-group input[type="text"],
+        .control-group input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+            margin-bottom: 8px;
+        }
+        
+        .btn:hover {
+            background: #f0f0f0;
+            border-color: #999;
+        }
+        
+        .btn.primary {
+            background: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+        
+        .btn.primary:hover {
+            background: #45a049;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            font-size: 12px;
+        }
+        
+        .stat-card {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        
+        .stat-value {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 11px;
+            margin-top: 4px;
+        }
+        
+        .legend-item { 
+            display: flex; 
+            align-items: center; 
+            margin-bottom: 8px;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .legend-color { 
+            width: 12px; 
+            height: 12px; 
+            margin-right: 8px; 
+            border-radius: 50%; 
+        }
+        
+        .tooltip {
+            position: fixed;
+            background: white;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            pointer-events: none;
+            font-size: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: none;
+            max-width: 400px;
+            z-index: 1000;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin: 0;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #999;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+        }
+        
+        .modal-close:hover {
+            background: #f0f0f0;
+            color: #333;
+        }
+        
+        .modal-body {
+            font-size: 14px;
+        }
+        
+        .modal-field {
+            margin-bottom: 16px;
+        }
+        
+        .modal-field label {
+            display: block;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 6px;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+        
+        .modal-field-value {
+            color: #333;
+            line-height: 1.5;
+            word-break: break-all;
+        }
+        
+        .modal-link {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .modal-link:hover {
+            text-decoration: underline;
+        }
+        
+        .modal-actions {
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .modal-btn {
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+        
+        .modal-btn-primary {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .modal-btn-primary:hover {
+            background: #45a049;
+        }
+        
+        .modal-btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+        
+        .modal-btn-secondary:hover {
+            background: #e0e0e0;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-2xx {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .status-3xx {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+        
+        .status-4xx {
+            background: #ffebee;
+            color: #c62828;
+        }
+        
+        .status-5xx {
+            background: #f5f5f5;
+            color: #616161;
+        }
+        
+        .tooltip strong {
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .node {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .node:hover {
+            stroke: #333;
+            stroke-width: 3px;
+        }
+        
+        .node.highlighted {
+            stroke: #333;
+            stroke-width: 3px;
+        }
+        
+        .node.dimmed {
+            opacity: 0.2;
+        }
+        
+        .link {
+            fill: none;
+            stroke: #999;
+            stroke-opacity: 0.3;
+            stroke-width: 1px;
+        }
+        
+        .link.highlighted {
+            stroke: #4CAF50;
+            stroke-opacity: 0.8;
+            stroke-width: 2px;
+        }
+        
+        .view-mode-tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 8px 6px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        
+        .tab:hover {
+            background: #f0f0f0;
+        }
+        
+        .tab.active {
+            background: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+        
+        .alert {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            color: #856404;
+            margin-bottom: 15px;
+        }
+        
+        .alert.info {
+            background: #d1ecf1;
+            border-color: #bee5eb;
+            color: #0c5460;
+        }
+        
+        .alert.danger {
+            background: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+</head>
+<body>
+    <div id="container">
+        <div id="sidebar">
+            <div class="sidebar-section">
+                <h3>Dataset Overview</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalPages">0</div>
+                        <div class="stat-label">Total Pages</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="rendering">0</div>
+                        <div class="stat-label">Rendering</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="maxDepth">0</div>
+                        <div class="stat-label">Max Depth</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="loadTime">0ms</div>
+                        <div class="stat-label">Load Time</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>Layout</h3>
+                <div class="view-mode-tabs">
+                    <div class="tab active" data-layout="tree">Tree</div>
+                    <div class="tab" data-layout="radial">Radial</div>
+                </div>
+                
+                <div class="control-group" id="orientationGroup">
+                    <label>Orientation:</label>
+                    <div class="view-mode-tabs">
+                        <div class="tab active" data-orientation="vertical">Vertical</div>
+                        <div class="tab" data-orientation="horizontal">Horizontal</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>Filtering (Required for Large Sites)</h3>
+                
+                <div class="control-group">
+                    <label>Max Pages to Render:</label>
+                    <input type="number" id="maxPages" value="1000" min="100" max="5000" step="100">
+                </div>
+                
+                <div class="control-group">
+                    <label>Max Depth:</label>
+                    <select id="depthLimit">
+                        <option value="2">2 Levels</option>
+                        <option value="3" selected>3 Levels</option>
+                        <option value="4">4 Levels</option>
+                        <option value="5">5 Levels</option>
+                        <option value="10">10 Levels</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label>Status Code:</label>
+                    <select id="statusFilter">
+                        <option value="all">All Status Codes</option>
+                        <option value="2xx">2xx - Success</option>
+                        <option value="3xx">3xx - Redirect</option>
+                        <option value="4xx">4xx - Client Error</option>
+                        <option value="5xx">5xx - Server Error</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label>Path Contains:</label>
+                    <input type="text" id="pathFilter" placeholder="e.g., /blog/">
+                </div>
+                
+                <div class="control-group">
+                    <button class="btn primary" id="applyFilters">Apply & Render</button>
+                    <button class="btn" id="resetBtn">Reset</button>
+                </div>
+                
+                <div id="warningMessage"></div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>Status Codes</h3>
+                <div class="legend-item"><div class="legend-color" style="background: #4CAF50"></div>2xx (Success)</div>
+                <div class="legend-item"><div class="legend-color" style="background: #FFC107"></div>3xx (Redirect)</div>
+                <div class="legend-item"><div class="legend-color" style="background: #F44336"></div>4xx (Client Error)</div>
+                <div class="legend-item"><div class="legend-color" style="background: #9E9E9E"></div>5xx/Other</div>
+            </div>
+        </div>
+        
+        <div id="main">
+            <div id="graph"></div>
+            <div class="tooltip" id="tooltip"></div>
+            
+            <!-- Page Details Modal -->
+            <div class="modal" id="pageModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title">Page Details</h2>
+                        <button class="modal-close" id="closeModal">&times;</button>
+                    </div>
+                    <div class="modal-body" id="modalBody">
+                        <!-- Content populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const graphData = {json_data};
+
+        // Configuration
+        const config = {
+            width: window.innerWidth - 350,
+            height: window.innerHeight,
+            layout: 'tree',
+            orientation: 'vertical'
+        };
+
+        // Setup SVG
+        const svg = d3.select("#graph")
+            .append("svg")
+            .attr("width", config.width)
+            .attr("height", config.height);
+
+        const g = svg.append("g");
+        const tooltip = d3.select("#tooltip");
+
+        // Zoom
+        const zoom = d3.zoom()
+            .scaleExtent([0.1, 4])
+            .on("zoom", (event) => {
+                g.attr("transform", event.transform);
+            });
+        svg.call(zoom);
+
+        // Helpers
+        function getStatusColor(status) {
+            if (status >= 200 && status < 300) return '#4CAF50';
+            if (status >= 300 && status < 400) return '#FFC107';
+            if (status >= 400 && status < 500) return '#F44336';
+            return '#9E9E9E';
+        }
+
+        function getStatusCategory(status) {
+            if (status >= 200 && status < 300) return '2xx';
+            if (status >= 300 && status < 400) return '3xx';
+            if (status >= 400 && status < 500) return '4xx';
+            return '5xx';
+        }
+
+        // Build simple tree from links
+        function buildTree(nodes, links, maxDepth, maxNodes) {
+            // Create lookup
+            const nodeById = new Map(nodes.map(n => [n.id, {
+                id: n.id,
+                url: n.url,
+                page_title: n.page_title,
+                status: n.status
+            }]));
+            
+            // Count inbound links for each node
+            const inboundCount = new Map();
+            nodes.forEach(n => inboundCount.set(n.id, 0));
+            links.forEach(link => {
+                const count = inboundCount.get(link.target) || 0;
+                inboundCount.set(link.target, count + 1);
+            });
+            
+            // Add inbound count to each node
+            nodeById.forEach((node, id) => {
+                node.inboundLinks = inboundCount.get(id) || 0;
+            });
+            
+            // Find root
+            const targets = new Set(links.map(l => l.target));
+            const rootNode = nodes.find(n => !targets.has(n.id)) || nodes[0];
+            
+            // Build tree with BFS
+            const root = nodeById.get(rootNode.id);
+            const queue = [{node: root, depth: 0}];
+            const visited = new Set([root.id]);
+            let nodeCount = 1;
+            
+            while (queue.length > 0 && nodeCount < maxNodes) {
+                const {node, depth} = queue.shift();
+                
+                if (depth >= maxDepth) continue;
+                
+                // Find children
+                const children = [];
+                for (const link of links) {
+                    if (nodeCount >= maxNodes) break;
+                    
+                    if (link.source === node.id && !visited.has(link.target)) {
+                        const childNode = nodeById.get(link.target);
+                        if (childNode) {
+                            children.push(childNode);
+                            visited.add(link.target);
+                            queue.push({node: childNode, depth: depth + 1});
+                            nodeCount++;
+                        }
+                    }
+                }
+                
+                if (children.length > 0) {
+                    node.children = children;
+                }
+            }
+            
+            return root;
+        }
+
+        // Draw
+        function draw() {
+            const startTime = performance.now();
+            g.selectAll("*").remove();
+            
+            const statusFilter = document.getElementById('statusFilter').value;
+            const pathFilter = document.getElementById('pathFilter').value.toLowerCase();
+            const maxPages = parseInt(document.getElementById('maxPages').value);
+            const depthLimit = parseInt(document.getElementById('depthLimit').value);
+            
+            // Filter
+            let filtered = graphData.nodes.filter(node => {
+                if (statusFilter !== 'all' && getStatusCategory(node.status) !== statusFilter) return false;
+                if (pathFilter && !node.url.toLowerCase().includes(pathFilter)) return false;
+                return true;
+            });
+            
+            if (filtered.length > maxPages) {
+                filtered = filtered.slice(0, maxPages);
+            }
+            
+            const filteredIds = new Set(filtered.map(n => n.id));
+            const filteredLinks = graphData.links.filter(l => 
+                filteredIds.has(l.source) && filteredIds.has(l.target)
+            );
+            
+            // Warning
+            const warn = document.getElementById('warningMessage');
+            if (graphData.nodes.length > maxPages && !pathFilter && statusFilter === 'all') {
+                warn.innerHTML = `<div class="alert danger">Large dataset (${graphData.nodes.length.toLocaleString()} pages). Showing ${filtered.length.toLocaleString()}. Use filters!</div>`;
+            } else if (filtered.length < graphData.nodes.length) {
+                warn.innerHTML = `<div class="alert info">Filtered: ${graphData.nodes.length.toLocaleString()} → ${filtered.length.toLocaleString()} pages</div>`;
+            } else {
+                warn.innerHTML = '';
+            }
+            
+            // Stats
+            document.getElementById('totalPages').textContent = graphData.nodes.length.toLocaleString();
+            document.getElementById('rendering').textContent = filtered.length.toLocaleString();
+            
+            // Build tree
+            const treeData = buildTree(filtered, filteredLinks, depthLimit, maxPages);
+            const hierarchy = d3.hierarchy(treeData);
+            
+            // Calculate maxDepth early since we need it for layout
+            const maxDepth = d3.max(hierarchy.descendants(), d => d.depth);
+            
+            // Layout
+            if (config.layout === 'tree') {
+                const tree = d3.tree()
+                    .size(config.orientation === 'vertical' 
+                        ? [config.width - 200, config.height - 200]
+                        : [config.height - 200, config.width - 200])
+                    .separation((a, b) => (a.parent === b.parent ? 1 : 1.2));
+                
+                tree(hierarchy);
+                
+                if (config.orientation === 'vertical') {
+                    hierarchy.descendants().forEach(d => {
+                        d.x = d.x + 100;
+                        d.y = d.depth * 120 + 100;
+                    });
+                } else {
+                    hierarchy.descendants().forEach(d => {
+                        const x = d.x + 100;
+                        d.x = d.depth * 180 + 100;
+                        d.y = x;
+                    });
+                }
+            } else { // radial
+                const radius = Math.min(config.width, config.height) / 2 - 100;
+                
+                // Use cluster layout for better spacing in radial view
+                const cluster = d3.cluster()
+                    .size([2 * Math.PI, radius])
+                    .separation((a, b) => {
+                        // More separation between different parents
+                        return (a.parent === b.parent ? 1 : 2) / (a.depth + 1);
+                    });
+                
+                cluster(hierarchy);
+                
+                // Convert polar to cartesian with better radial spacing
+                hierarchy.descendants().forEach(d => {
+                    const angle = d.x;
+                    // Increase radial spacing exponentially with depth
+                    const radiusMultiplier = Math.pow(1.4, d.depth);
+                    const r = (d.y / radius) * (radius * 0.85) * radiusMultiplier;
+                    
+                    d.x = r * Math.cos(angle - Math.PI / 2) + config.width / 2;
+                    d.y = r * Math.sin(angle - Math.PI / 2) + config.height / 2;
+                });
+                
+                // Apply force to reduce overlap
+                const simulation = d3.forceSimulation(hierarchy.descendants())
+                    .force("collision", d3.forceCollide().radius(d => {
+                        const inbound = d.data.inboundLinks || 0;
+                        return Math.min(3 + Math.sqrt(inbound) * 2, 15) + 2; // node radius + padding
+                    }))
+                    .force("radial", d3.forceRadial(d => {
+                        const angle = hierarchy.descendants().indexOf(d) / hierarchy.descendants().length * 2 * Math.PI;
+                        const radiusMultiplier = Math.pow(1.4, d.depth);
+                        return (d.depth / maxDepth) * (radius * 0.85) * radiusMultiplier;
+                    }, config.width / 2, config.height / 2).strength(0.5))
+                    .stop();
+                
+                // Run simulation for a fixed number of iterations
+                for (let i = 0; i < 50; i++) {
+                    simulation.tick();
+                }
+            }
+            
+            document.getElementById('maxDepth').textContent = maxDepth;
+            
+            // Draw links
+            const links = g.append("g")
+                .selectAll("path")
+                .data(hierarchy.links())
+                .join("path")
+                .attr("class", "link")
+                .attr("d", d => {
+                    if (config.layout === 'radial') {
+                        // Draw smooth curved paths in radial layout
+                        const dx = d.target.x - d.source.x;
+                        const dy = d.target.y - d.source.y;
+                        const dr = Math.sqrt(dx * dx + dy * dy);
+                        
+                        // Use arc for better radial curves
+                        return `M${d.source.x},${d.source.y} A${dr},${dr} 0 0,1 ${d.target.x},${d.target.y}`;
+                    } else if (config.orientation === 'vertical') {
+                        return `M${d.source.x},${d.source.y} C${d.source.x},${(d.source.y + d.target.y)/2} ${d.target.x},${(d.source.y + d.target.y)/2} ${d.target.x},${d.target.y}`;
+                    } else {
+                        return `M${d.source.x},${d.source.y} C${(d.source.x + d.target.x)/2},${d.source.y} ${(d.source.x + d.target.x)/2},${d.target.y} ${d.target.x},${d.target.y}`;
+                    }
+                });
+
+            // Draw nodes
+            const nodes = g.append("g")
+                .selectAll("circle")
+                .data(hierarchy.descendants())
+                .join("circle")
+                .attr("class", "node")
+                .attr("cx", d => d.x)
+                .attr("cy", d => d.y)
+                .attr("r", d => {
+                    if (config.layout === 'radial') {
+                        // Size based on inbound links in radial view
+                        const inbound = d.data.inboundLinks || 0;
+                        if (d.depth === 0) return 10; // Root
+                        return Math.min(3 + Math.sqrt(inbound) * 2, 15); // Scale with sqrt, cap at 15
+                    } else {
+                        return d.depth === 0 ? 8 : 5;
+                    }
+                })
+                .attr("fill", d => getStatusColor(d.data.status))
+                .on("mouseover", function(event, d) {
+                    const ancestors = d.ancestors();
+                    const ancestorSet = new Set(ancestors);
+                    
+                    nodes.classed("dimmed", n => !ancestorSet.has(n))
+                          .classed("highlighted", n => ancestorSet.has(n));
+                    
+                    links.classed("highlighted", l => 
+                        ancestorSet.has(l.source) && ancestorSet.has(l.target)
+                    );
+                    
+                    tooltip
+                        .style("display", "block")
+                        .html(`
+                            <div style="margin-bottom: 4px;"><strong>${d.data.page_title}</strong></div>
+                            <div style="font-size: 11px; color: #666;">Click for details</div>
+                        `);
+                })
+                .on("mousemove", function(event) {
+                    tooltip
+                        .style("left", (event.clientX + 10) + "px")
+                        .style("top", (event.clientY + 10) + "px");
+                })
+                .on("mouseout", function() {
+                    nodes.classed("dimmed", false).classed("highlighted", false);
+                    links.classed("highlighted", false);
+                    tooltip.style("display", "none");
+                })
+                .on("click", function(event, d) {
+                    event.stopPropagation();
+                    
+                    // Show modal with page details
+                    showPageModal(d);
+                });
+
+            // Center view
+            const bounds = g.node().getBBox();
+            const scale = 0.9 / Math.max(bounds.width / config.width, bounds.height / config.height);
+            const translate = [
+                config.width / 2 - scale * (bounds.x + bounds.width / 2),
+                config.height / 2 - scale * (bounds.y + bounds.height / 2)
+            ];
+            
+            svg.transition()
+                .duration(750)
+                .call(zoom.transform, d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale));
+            
+            document.getElementById('loadTime').textContent = Math.round(performance.now() - startTime) + 'ms';
+        }
+
+        // Events
+        document.querySelectorAll('[data-layout]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('[data-layout]').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                config.layout = this.dataset.layout;
+                
+                // Hide orientation for radial
+                document.getElementById('orientationGroup').style.display = 
+                    config.layout === 'radial' ? 'none' : 'block';
+                
+                draw();
+            });
+        });
+
+        document.querySelectorAll('[data-orientation]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('[data-orientation]').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                config.orientation = this.dataset.orientation;
+                draw();
+            });
+        });
+
+        document.getElementById('applyFilters').addEventListener('click', draw);
+        
+        document.getElementById('resetBtn').addEventListener('click', function() {
+            document.getElementById('statusFilter').value = 'all';
+            document.getElementById('pathFilter').value = '';
+            document.getElementById('depthLimit').value = '3';
+            document.getElementById('maxPages').value = '1000';
+            draw();
+        });
+
+        window.addEventListener('resize', function() {
+            config.width = window.innerWidth - 350;
+            config.height = window.innerHeight;
+            svg.attr("width", config.width).attr("height", config.height);
+            draw();
+        });
+
+        // Initial draw
+        draw();
+        
+        // Modal functions
+        function showPageModal(d) {
+            const modal = document.getElementById('pageModal');
+            const modalBody = document.getElementById('modalBody');
+            
+            const statusCategory = getStatusCategory(d.data.status);
+            const statusClass = `status-${statusCategory}`;
+            
+            // Find parent in hierarchy
+            const parentUrl = d.parent ? d.parent.data.url : 'None (Root)';
+            
+            // Count children
+            const childCount = d.children ? d.children.length : 0;
+            
+            modalBody.innerHTML = `
+                <div class="modal-field">
+                    <label>Page Title</label>
+                    <div class="modal-field-value">${d.data.page_title}</div>
+                </div>
+                
+                <div class="modal-field">
+                    <label>URL</label>
+                    <div class="modal-field-value">
+                        <a href="${d.data.url}" target="_blank" class="modal-link">${d.data.url}</a>
+                    </div>
+                </div>
+                
+                <div class="modal-field">
+                    <label>Status Code</label>
+                    <div class="modal-field-value">
+                        <span class="status-badge ${statusClass}">${d.data.status}</span>
+                    </div>
+                </div>
+                
+                <div class="modal-field">
+                    <label>Hierarchy</label>
+                    <div class="modal-field-value">
+                        Depth: ${d.depth} levels from root<br>
+                        Parent: ${parentUrl}<br>
+                        Children: ${childCount} pages
+                    </div>
+                </div>
+                
+                ${config.layout === 'radial' ? `
+                <div class="modal-field">
+                    <label>Link Popularity</label>
+                    <div class="modal-field-value">
+                        ${d.data.inboundLinks} inbound link${d.data.inboundLinks !== 1 ? 's' : ''}
+                    </div>
+                </div>
+                ` : ''}
+                
+                <div class="modal-actions">
+                    <button class="modal-btn modal-btn-primary" onclick="window.open('${d.data.url}', '_blank')">
+                        Open Page
+                    </button>
+                    <button class="modal-btn modal-btn-secondary" onclick="copyToClipboard('${d.data.url}')">
+                        Copy URL
+                    </button>
+                    <button class="modal-btn modal-btn-secondary" id="closeModalBtn">
+                        Close
+                    </button>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+            
+            // Add close button handler
+            document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+        }
+        
+        function closeModal() {
+            document.getElementById('pageModal').classList.remove('active');
+        }
+        
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('URL copied to clipboard!');
+            });
+        }
+        
+        // Close modal on X button
+        document.getElementById('closeModal').addEventListener('click', closeModal);
+        
+        // Close modal on background click
+        document.getElementById('pageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+        
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

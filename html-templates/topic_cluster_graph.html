@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black SEO Analyzer Topic Cluster Map</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f7fa;
+            overflow: hidden;
+        }
+        
+        #container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+        }
+        
+        #sidebar {
+            width: 350px;
+            background: white;
+            border-right: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        
+        #main {
+            flex: 1;
+            position: relative;
+        }
+        
+        #graph { 
+            width: 100%; 
+            height: 100%; 
+        }
+        
+        .sidebar-section {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .sidebar-section h3 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 12px;
+        }
+        
+        .control-group {
+            margin-bottom: 15px;
+        }
+        
+        .control-group label {
+            display: block;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        
+        .control-group select,
+        .control-group input[type="text"],
+        .control-group input[type="number"],
+        .control-group input[type="range"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+            margin-bottom: 8px;
+        }
+        
+        .btn:hover {
+            background: #f0f0f0;
+            border-color: #999;
+        }
+        
+        .btn.primary {
+            background: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+        
+        .btn.primary:hover {
+            background: #45a049;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            font-size: 12px;
+        }
+        
+        .stat-card {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        
+        .stat-value {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 11px;
+            margin-top: 4px;
+        }
+        
+        .tooltip {
+            position: fixed;
+            background: white;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            pointer-events: none;
+            font-size: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: none;
+            max-width: 400px;
+            z-index: 1000;
+        }
+        
+        .node {
+            cursor: pointer;
+            stroke: #fff;
+            stroke-width: 1.5px;
+        }
+        
+        .link {
+            stroke: #999;
+            stroke-opacity: 0.6;
+        }
+        
+        .view-mode-tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 8px 6px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        
+        .tab:hover {
+            background: #f0f0f0;
+        }
+        
+        .tab.active {
+            background: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin: 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #999;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+        }
+        
+        .modal-field {
+            margin-bottom: 16px;
+        }
+        
+        .modal-field label {
+            display: block;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 6px;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+        
+        .modal-field-value {
+            color: #333;
+            line-height: 1.5;
+            word-break: break-all;
+        }
+        
+        .modal-link {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .modal-actions {
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .modal-btn {
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+        
+        .modal-btn-primary {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .modal-btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+</head>
+<body>
+    <div id="container">
+        <div id="sidebar">
+            <div class="sidebar-section">
+                <h3>Dataset Overview</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalPages">0</div>
+                        <div class="stat-label">Total Pages</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalLinks">0</div>
+                        <div class="stat-label">Total Links</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>Clustering Settings</h3>
+                <div class="control-group">
+                    <label>Similarity Threshold:</label>
+                    <input type="range" id="threshold" min="0.0" max="1.0" step="0.01" value="0.5">
+                    <span id="thresholdValue">0.5</span>
+                </div>
+                
+                <div class="control-group">
+                    <button class="btn primary" id="applySettings">Apply</button>
+                    <button class="btn" id="resetSettings">Reset</button>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Instructions</h3>
+                <p style="font-size: 12px; color: #666; line-height: 1.4;">
+                    Nodes represent pages. Links represent semantic similarity based on vector embeddings.<br><br>
+                    Closer nodes are semantically more similar.<br><br>
+                    Adjust threshold to see stronger/weaker relationships.
+                </p>
+            </div>
+        </div>
+        
+        <div id="main">
+            <div id="graph"></div>
+            <div class="tooltip" id="tooltip"></div>
+            
+            <!-- Page Details Modal -->
+            <div class="modal" id="pageModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title">Page Details</h2>
+                        <button class="modal-close" id="closeModal">&times;</button>
+                    </div>
+                    <div class="modal-body" id="modalBody">
+                        <!-- Content populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const graphData = {json_data};
+        
+        let linkData = graphData.links;
+        let nodeData = graphData.nodes;
+
+        // Setup SVG
+        const width = window.innerWidth - 350;
+        const height = window.innerHeight;
+
+        const svg = d3.select("#graph")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        // Add a background
+        svg.append("rect")
+            .attr("width", "100%")
+            .attr("height", "100%")
+            .attr("fill", "#fafbfc");
+
+        const g = svg.append("g");
+        const tooltip = d3.select("#tooltip");
+
+        // Zoom with better constraints
+        const zoom = d3.zoom()
+            .scaleExtent([0.2, 8])
+            .on("zoom", (event) => {
+                g.attr("transform", event.transform);
+            });
+        svg.call(zoom);
+
+        // Blue-focused color scheme
+        const color = d3.scaleOrdinal([
+            '#1e3a8a', '#2563eb', '#3b82f6', '#60a5fa', '#0ea5e9',
+            '#06b6d4', '#0891b2', '#0e7490', '#155e75', '#164e63'
+        ]);
+
+        // Improved simulation with clustering
+        let simulation = d3.forceSimulation(nodeData)
+            // Stronger similarity = much shorter distance
+            .force("link", d3.forceLink(linkData)
+                .id(d => d.id)
+                .distance(d => 50 + (1 - d.value) * 400)  // More dramatic distance variation
+                .strength(d => d.value * 0.5))  // Link strength
+            // Much stronger repulsion for better separation
+            .force("charge", d3.forceManyBody()
+                .strength(-800)  // Increased from -400
+                .distanceMax(600))
+            // Center force
+            .force("center", d3.forceCenter(width / 2, height / 2))
+            // Stronger collision to prevent overlap
+            .force("collision", d3.forceCollide()
+                .radius(30)  // Increased from 20
+                .strength(0.9))  // Increased from 0.7
+            // Gentle centering
+            .force("x", d3.forceX(width / 2).strength(0.02))
+            .force("y", d3.forceY(height / 2).strength(0.02))
+            // Slower decay for better settling
+            .alphaDecay(0.015);
+
+        function draw() {
+            const threshold = parseFloat(document.getElementById('threshold').value);
+            document.getElementById('thresholdValue').textContent = threshold;
+
+            const filteredLinks = graphData.links.filter(l => l.value >= threshold);
+            
+            document.getElementById('totalPages').textContent = nodeData.length;
+            document.getElementById('totalLinks').textContent = filteredLinks.length;
+
+            simulation.force("link").links(filteredLinks);
+            simulation.alpha(1).restart();
+
+            g.selectAll("*").remove();
+
+            // Calculate node degrees for sizing
+            const nodeDegrees = new Map();
+            const nodeConnections = new Map();
+            filteredLinks.forEach(link => {
+                const sourceId = link.source.id || link.source;
+                const targetId = link.target.id || link.target;
+                
+                nodeDegrees.set(sourceId, (nodeDegrees.get(sourceId) || 0) + 1);
+                nodeDegrees.set(targetId, (nodeDegrees.get(targetId) || 0) + 1);
+                
+                if (!nodeConnections.has(sourceId)) nodeConnections.set(sourceId, []);
+                if (!nodeConnections.has(targetId)) nodeConnections.set(targetId, []);
+                nodeConnections.get(sourceId).push(targetId);
+                nodeConnections.get(targetId).push(sourceId);
+            });
+
+            // Draw links with better styling
+            const link = g.append("g")
+                .attr("class", "links")
+                .selectAll("line")
+                .data(filteredLinks)
+                .join("line")
+                .attr("class", "link")
+                .attr("stroke", "#999")
+                .attr("stroke-width", d => 0.5 + (d.value * 3))  // Clearer weight variation
+                .attr("stroke-opacity", d => 0.2 + (d.value * 0.6));
+
+            // Draw node halos for better visibility
+            const nodeHalo = g.append("g")
+                .attr("class", "node-halos")
+                .selectAll("circle")
+                .data(nodeData)
+                .join("circle")
+                .attr("r", d => 10 + Math.sqrt(Math.min(nodeDegrees.get(d.id) || 0, 20)) * 3)
+                .attr("fill", "white")
+                .attr("opacity", 0.7);
+
+            // Draw nodes
+            const node = g.append("g")
+                .attr("class", "nodes")
+                .selectAll("circle")
+                .data(nodeData)
+                .join("circle")
+                .attr("class", "node")
+                .attr("r", d => 6 + Math.sqrt(Math.min(nodeDegrees.get(d.id) || 0, 20)) * 2.5)
+                .attr("fill", d => color(d.group))
+                .attr("stroke", "#fff")
+                .attr("stroke-width", 2)
+                .style("cursor", "pointer")
+                .call(d3.drag()
+                    .on("start", dragstarted)
+                    .on("drag", dragged)
+                    .on("end", dragended));
+
+            // Add labels - more aggressive filtering and better styling
+            const labelThreshold = Math.max(5, d3.quantile(Array.from(nodeDegrees.values()).sort((a, b) => b - a), 0.3) || 5);
+            
+            const labels = g.append("g")
+                .attr("class", "labels")
+                .selectAll("text")
+                .data(nodeData.filter(d => (nodeDegrees.get(d.id) || 0) >= labelThreshold))
+                .join("text")
+                .attr("font-size", d => {
+                    const degree = nodeDegrees.get(d.id) || 0;
+                    return Math.min(14, 9 + Math.sqrt(degree));
+                })
+                .attr("font-weight", 600)
+                .attr("dx", 15)
+                .attr("dy", 4)
+                .attr("fill", "#333")
+                .attr("stroke", "#fff")
+                .attr("stroke-width", 3)
+                .attr("paint-order", "stroke")
+                .attr("pointer-events", "none")
+                .text(d => {
+                    const title = d.title || d.url;
+                    // Extract meaningful part of title
+                    const cleanTitle = title
+                        .replace(/^.*?: /, '')  // Remove prefix before colon
+                        .replace(/\|.*$/, '')   // Remove suffix after pipe
+                        .trim();
+                    return cleanTitle.length > 40 ? cleanTitle.substring(0, 40) + "..." : cleanTitle;
+                });
+
+            // Enhanced hover effects
+            node.on("mouseover", function(event, d) {
+                const connectedNodes = new Set(nodeConnections.get(d.id) || []);
+                connectedNodes.add(d.id);
+
+                // Dim non-connected elements
+                node.transition().duration(200)
+                    .attr("opacity", n => connectedNodes.has(n.id) ? 1 : 0.15);
+                
+                nodeHalo.transition().duration(200)
+                    .attr("opacity", n => connectedNodes.has(n.id) ? 0.7 : 0.05);
+                
+                link.transition().duration(200)
+                    .attr("stroke-opacity", l => {
+                        const sourceId = l.source.id || l.source;
+                        const targetId = l.target.id || l.target;
+                        return (sourceId === d.id || targetId === d.id) ? 0.8 : 0.05;
+                    })
+                    .attr("stroke", l => {
+                        const sourceId = l.source.id || l.source;
+                        const targetId = l.target.id || l.target;
+                        return (sourceId === d.id || targetId === d.id) ? "#333" : "#999";
+                    })
+                    .attr("stroke-width", l => {
+                        const sourceId = l.source.id || l.source;
+                        const targetId = l.target.id || l.target;
+                        return (sourceId === d.id || targetId === d.id) ? 2 + (l.value * 4) : 0.5 + (l.value * 3);
+                    });
+
+                labels.transition().duration(200)
+                    .attr("opacity", n => connectedNodes.has(n.id) ? 1 : 0.2);
+
+                // Scale up hovered node
+                d3.select(this).transition().duration(200)
+                    .attr("r", d => (6 + Math.sqrt(Math.min(nodeDegrees.get(d.id) || 0, 20)) * 2.5) * 1.5)
+                    .attr("stroke-width", 3);
+
+                const degree = nodeDegrees.get(d.id) || 0;
+                tooltip.style("display", "block")
+                    .html(`
+                        <div style="font-weight: 600; font-size: 13px; margin-bottom: 4px;">
+                            ${d.title}
+                        </div>
+                        <div style="font-size: 11px; color: #666; margin-bottom: 6px;">
+                            ${d.url}
+                        </div>
+                        <div style="font-size: 11px; color: #4CAF50; font-weight: 600;">
+                            ${degree} connection${degree !== 1 ? 's' : ''}
+                        </div>
+                    `);
+            })
+            .on("mousemove", function(event) {
+                tooltip.style("left", (event.clientX + 15) + "px")
+                    .style("top", (event.clientY + 15) + "px");
+            })
+            .on("mouseout", function(event, d) {
+                node.transition().duration(300).attr("opacity", 1);
+                nodeHalo.transition().duration(300).attr("opacity", 0.7);
+                link.transition().duration(300)
+                    .attr("stroke-opacity", l => 0.2 + (l.value * 0.6))
+                    .attr("stroke", "#999")
+                    .attr("stroke-width", l => 0.5 + (l.value * 3));
+                labels.transition().duration(300).attr("opacity", 1);
+                
+                d3.select(this).transition().duration(300)
+                    .attr("r", d => 6 + Math.sqrt(Math.min(nodeDegrees.get(d.id) || 0, 20)) * 2.5)
+                    .attr("stroke-width", 2);
+                
+                tooltip.style("display", "none");
+            })
+            .on("click", function(event, d) {
+                event.stopPropagation();
+                showPageModal(d);
+            });
+
+            // Tick function
+            simulation.on("tick", () => {
+                link
+                    .attr("x1", d => d.source.x)
+                    .attr("y1", d => d.source.y)
+                    .attr("x2", d => d.target.x)
+                    .attr("y2", d => d.target.y);
+
+                nodeHalo
+                    .attr("cx", d => d.x)
+                    .attr("cy", d => d.y);
+
+                node
+                    .attr("cx", d => d.x)
+                    .attr("cy", d => d.y);
+
+                labels
+                    .attr("x", d => d.x)
+                    .attr("y", d => d.y);
+            });
+        }
+
+        function dragstarted(event, d) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
+
+        function dragged(event, d) {
+            d.fx = event.x;
+            d.fy = event.y;
+        }
+
+        function dragended(event, d) {
+            if (!event.active) simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+        }
+
+        // Event listeners
+        document.getElementById('applySettings').addEventListener('click', draw);
+
+        document.getElementById('threshold').addEventListener('input', function() {
+            document.getElementById('thresholdValue').textContent = this.value;
+        });
+
+        document.getElementById('resetSettings').addEventListener('click', function() {
+            document.getElementById('threshold').value = 0.75;
+            document.getElementById('thresholdValue').textContent = 0.75;
+            draw();
+        });
+
+        // Fit to screen
+        document.getElementById('fitToScreen')?.addEventListener('click', function() {
+            const bounds = g.node().getBBox();
+            const parent = svg.node().parentElement;
+            const fullWidth = parent.clientWidth;
+            const fullHeight = parent.clientHeight;
+            
+            const width = bounds.width;
+            const height = bounds.height;
+            
+            const midX = bounds.x + width / 2;
+            const midY = bounds.y + height / 2;
+            
+            const scale = 0.85 / Math.max(width / fullWidth, height / fullHeight);
+            const translate = [fullWidth / 2 - scale * midX, fullHeight / 2 - scale * midY];
+            
+            svg.transition()
+                .duration(750)
+                .call(zoom.transform, d3.zoomIdentity
+                    .translate(translate[0], translate[1])
+                    .scale(scale));
+        });
+
+        // Responsive resize
+        window.addEventListener('resize', () => {
+            const width = window.innerWidth - 350;
+            const height = window.innerHeight;
+            svg.attr("width", width).attr("height", height);
+            simulation.force("center", d3.forceCenter(width / 2, height / 2));
+            simulation.force("x", d3.forceX(width / 2).strength(0.02));
+            simulation.force("y", d3.forceY(height / 2).strength(0.02));
+            simulation.alpha(0.3).restart();
+        });
+
+        // Initial draw
+        draw();
+
+         // Modal functions
+        function showPageModal(d) {
+            const modal = document.getElementById('pageModal');
+            const modalBody = document.getElementById('modalBody');
+            
+            modalBody.innerHTML = `
+                <div class="modal-field">
+                    <label>Page Title</label>
+                    <div class="modal-field-value">${d.title}</div>
+                </div>
+                
+                <div class="modal-field">
+                    <label>URL</label>
+                    <div class="modal-field-value">
+                        <a href="${d.url}" target="_blank" class="modal-link">${d.url}</a>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="modal-btn modal-btn-primary" onclick="window.open('${d.url}', '_blank')">
+                        Open Page
+                    </button>
+                    <button class="modal-btn modal-btn-secondary" id="closeModalBtn">
+                        Close
+                    </button>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+            
+            document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+        }
+        
+        function closeModal() {
+            document.getElementById('pageModal').classList.remove('active');
+        }
+
+        document.getElementById('closeModal').addEventListener('click', closeModal);
+        document.getElementById('pageModal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
+    </script>
+</body>
+</html>

@@ -93,7 +93,7 @@ Options:
       --max-pages <MAX_PAGES>
           Optional maximum number of pages to crawl
       --html-templates-dir <HTML_TEMPLATES_DIR>
-          Optional path to custom HTML templates directory
+          Directory holding replacements for the built-in HTML report templates
   -h, --help
           Print help
   -V, --version
@@ -187,7 +187,7 @@ Options:
       --max-pages <MAX_PAGES>
           Optional maximum number of pages to crawl
       --html-templates-dir <HTML_TEMPLATES_DIR>
-          Optional path to custom HTML templates directory
+          Directory holding replacements for the built-in HTML report templates
   -h, --help
           Print help
   -V, --version

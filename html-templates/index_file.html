@@ -354,7 +354,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for analysis in keyword_analysis | slice(end=500) %}
+                        {% for analysis in keyword_analysis[:500] %}
                         <tr>
                             <td>{{ analysis.keyword }}</td>
                             <td>{{ analysis.score | round(precision=4) }}</td>
