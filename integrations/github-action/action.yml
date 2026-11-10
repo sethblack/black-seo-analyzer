@@ -1,0 +1,203 @@
+name: Black SEO Analyzer
+description: Crawl a site for technical SEO and AI-readiness issues, and fail the build when new ones appear.
+author: Fiscus Technology, LLC
+
+branding:
+  icon: search
+  color: gray-dark
+
+inputs:
+  url:
+    description: The URL to crawl. Usually a preview deployment.
+    required: true
+  license-key:
+    description: >-
+      A Black SEO Analyzer licence key. Pass it from a secret, never inline.
+      Start a free 14-day trial at https://www.blackseoanalyzer.com/free-trial
+    required: true
+  version:
+    description: Release to use, e.g. 26.9.16. Defaults to the latest release.
+    required: false
+    default: latest
+  max-pages:
+    description: Stop after this many pages. Keeps pull-request runs quick.
+    required: false
+    default: "100"
+  fail-on:
+    description: >-
+      Fail the job when an issue at or above this severity is found:
+      low, medium, high or critical. Leave empty to report without failing.
+    required: false
+    default: ""
+  audit-profile:
+    description: full, standard, core, critical or quick.
+    required: false
+    default: full
+  baseline:
+    description: >-
+      A crawl database from an earlier run, usually restored from cache or
+      downloaded as an artifact. When set, the new crawl is written into it and
+      compared against the previous session, so fail-on applies to issues this
+      change introduced rather than to everything the site already had.
+    required: false
+    default: ""
+  crux-api-key:
+    description: >-
+      Optional Chrome UX Report API key. When set, Core Web Vitals are reported
+      as real Chrome users measured them, and markup-based performance guesses
+      that the measurements contradict are demoted. Pass it from a secret.
+    required: false
+    default: ""
+  db-path:
+    description: Where to write the crawl database, so a later step can keep it as the next baseline.
+    required: false
+    default: bseoa-crawl.db
+  summary:
+    description: Write a report to the job summary.
+    required: false
+    default: "true"
+
+outputs:
+  database:
+    description: Path to the crawl database this run produced.
+    value: ${{ inputs.db-path }}
+  report:
+    description: Path to the JSON report, either the diff or the full issue list.
+    value: ${{ steps.audit.outputs.report }}
+  session-id:
+    description: Crawl session id for this run, for diffing against a later one.
+    value: ${{ steps.audit.outputs.session-id }}
+  compared-against:
+    description: The earlier session id this run was diffed against, empty when there was no baseline.
+    value: ${{ steps.audit.outputs.compared-against }}
+
+runs:
+  using: composite
+  steps:
+    - name: Install Black SEO Analyzer
+      shell: bash
+      env:
+        BSEOA_VERSION: ${{ inputs.version }}
+      run: |
+        set -euo pipefail
+
+        case "$RUNNER_OS" in
+          Linux)   asset=bseoa-linux-x64 ;;
+          macOS)   asset=bseoa-macos-universal ;;
+          Windows) asset=bseoa-windows-x64.exe ;;
+          *) echo "::error::Unsupported runner: $RUNNER_OS"; exit 1 ;;
+        esac
+
+        repo=sethblack/black-seo-analyzer
+        if [ "$BSEOA_VERSION" = "latest" ]; then
+          url="https://github.com/$repo/releases/latest/download/$asset"
+        else
+          url="https://github.com/$repo/releases/download/v${BSEOA_VERSION#v}/$asset"
+        fi
+
+        mkdir -p "$RUNNER_TEMP/bseoa"
+        target="$RUNNER_TEMP/bseoa/bseoa"
+        [ "$RUNNER_OS" = "Windows" ] && target="$target.exe"
+
+        echo "Downloading $url"
+        if ! curl -fsSL --retry 3 --retry-delay 2 -o "$target" "$url"; then
+          echo "::error::Could not download $asset. Check that version '$BSEOA_VERSION' has a published release."
+          exit 1
+        fi
+        chmod +x "$target"
+        echo "$RUNNER_TEMP/bseoa" >> "$GITHUB_PATH"
+        "$target" --version
+
+    - name: Audit
+      id: audit
+      shell: bash
+      env:
+        # Passed through the environment rather than on the command line, where
+        # it would show up in process listings and in any shell trace.
+        BLACK_SEO_ANALYZER_KEY: ${{ inputs.license-key }}
+        CRUX_API_KEY: ${{ inputs.crux-api-key }}
+        BSEOA_URL: ${{ inputs.url }}
+        BSEOA_DB: ${{ inputs.db-path }}
+        BSEOA_MAX_PAGES: ${{ inputs.max-pages }}
+        BSEOA_PROFILE: ${{ inputs.audit-profile }}
+        BSEOA_FAIL_ON: ${{ inputs.fail-on }}
+        BSEOA_BASELINE: ${{ inputs.baseline }}
+      run: |
+        set -uo pipefail
+
+        if [ -z "${BLACK_SEO_ANALYZER_KEY:-}" ]; then
+          echo "::error::license-key is empty. Pass it from a secret, for example \${{ secrets.BSEOA_LICENSE_KEY }}."
+          exit 1
+        fi
+
+        report="$RUNNER_TEMP/bseoa-report.json"
+        echo "report=$report" >> "$GITHUB_OUTPUT"
+
+        latest_session() {
+          bseoa list --db-path "$1" --json 2>/dev/null \
+            | python3 "$GITHUB_ACTION_PATH/latest_session.py"
+        }
+
+        # A baseline is just an earlier database. Crawling into it puts both
+        # runs in one file, which is what diff needs to compare them.
+        base_session=""
+        if [ -n "$BSEOA_BASELINE" ]; then
+          if [ -f "$BSEOA_BASELINE" ]; then
+            [ "$BSEOA_BASELINE" != "$BSEOA_DB" ] && cp "$BSEOA_BASELINE" "$BSEOA_DB"
+            base_session=$(latest_session "$BSEOA_DB")
+            echo "Baseline session: ${base_session:-<none found>}"
+          else
+            echo "::notice::No baseline at $BSEOA_BASELINE; reporting every issue instead of only new ones."
+          fi
+        fi
+        echo "compared-against=$base_session" >> "$GITHUB_OUTPUT"
+
+        # The crawl never fails the job on findings. Whether a finding counts
+        # depends on the baseline, and that is decided below.
+        bseoa crawl "$BSEOA_URL" \
+          --db-path "$BSEOA_DB" \
+          --max-pages "$BSEOA_MAX_PAGES" \
+          --audit-profile "$BSEOA_PROFILE"
+        crawl_status=$?
+        if [ "$crawl_status" -ne 0 ]; then
+          echo "::error::Crawl failed with exit code $crawl_status."
+          exit "$crawl_status"
+        fi
+
+        new_session=$(latest_session "$BSEOA_DB")
+        echo "session-id=$new_session" >> "$GITHUB_OUTPUT"
+
+        if [ -n "$base_session" ] && [ "$base_session" != "$new_session" ]; then
+          echo "mode=diff" >> "$GITHUB_OUTPUT"
+          bseoa diff "$base_session" "$new_session" --db-path "$BSEOA_DB" --json > "$report"
+          if [ -n "$BSEOA_FAIL_ON" ]; then
+            bseoa diff "$base_session" "$new_session" --db-path "$BSEOA_DB" \
+              --fail-on "$BSEOA_FAIL_ON" > /dev/null
+            exit $?
+          fi
+        else
+          echo "mode=issues" >> "$GITHUB_OUTPUT"
+          bseoa issues --db-path "$BSEOA_DB" --json > "$report"
+          if [ -n "$BSEOA_FAIL_ON" ]; then
+            bseoa issues --db-path "$BSEOA_DB" --fail-on "$BSEOA_FAIL_ON" > /dev/null
+            exit $?
+          fi
+        fi
+
+    - name: Write job summary
+      # Runs even when the audit failed the job: the summary is how you find
+      # out what tripped it.
+      if: ${{ always() && inputs.summary == 'true' }}
+      shell: bash
+      env:
+        BSEOA_REPORT: ${{ steps.audit.outputs.report }}
+        BSEOA_MODE: ${{ steps.audit.outputs.mode }}
+        BSEOA_URL: ${{ inputs.url }}
+      run: |
+        set -euo pipefail
+        if [ ! -f "${BSEOA_REPORT:-}" ]; then
+          echo "No Black SEO Analyzer report was produced." >> "$GITHUB_STEP_SUMMARY"
+          exit 0
+        fi
+        python3 "$GITHUB_ACTION_PATH/summarize.py" \
+          "$BSEOA_REPORT" "${BSEOA_MODE:-issues}" "$BSEOA_URL" >> "$GITHUB_STEP_SUMMARY"
