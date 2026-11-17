@@ -6,6 +6,65 @@ When run without a license you're limited in the number of pages you can crawl, 
 
 ![Black SEO Analyzer](https://www.sethserver.com/static/images/black-seo-analyzer.png)
 
+## MCP server: technical SEO audits inside your AI assistant
+
+Black SEO Analyzer is also a [Model Context Protocol](https://modelcontextprotocol.io/) (MCP) server, published in the official MCP registry as `io.github.sethblack/bseoa`. It gives Claude, ChatGPT, Cursor, VS Code, Codex and other MCP hosts a technical SEO crawler they can call as tools: check one page, crawl a whole site, rank the issues, and compare two crawls. Crawl results are stored, so they are still there in the next chat.
+
+### Hosted connector (nothing to install)
+
+```
+https://mcp.blackseoanalyzer.com/mcp
+```
+
+Streamable HTTP with OAuth sign-in. Add the URL as a connector in Claude or ChatGPT, or in any other assistant that takes a remote MCP URL with sign-in. Crawls run on our servers and the results are kept for your account. The first 14 days are free, with no card; plans are on the [pricing page](https://www.blackseoanalyzer.com/pricing). JavaScript rendering is not available on the hosted connector; the desktop app and the CLI have it.
+
+### Local server (stdio)
+
+The `bseoa` binary runs the same server on your own machine with `bseoa mcp`.
+
+1. Install it with `brew install sethblack/bseoa/bseoa` (macOS and Linux), or download `bseoa` for your OS from the [releases page](https://github.com/sethblack/black-seo-analyzer/releases) and put it on your `PATH`. The Linux binary needs glibc 2.39 or newer (Ubuntu 24.04, Debian 13 or later).
+2. Start a [free 14-day trial](https://www.blackseoanalyzer.com/free-trial) and store the key once with `bseoa license store <your-license-key>`. Without a key every tool returns a license error.
+3. Add the server to your host:
+
+| Host | Setup |
+| --- | --- |
+| Claude Desktop | Download the `.mcpb` bundle for your OS from the [releases page](https://github.com/sethblack/black-seo-analyzer/releases) and double-click it. It carries its own copy of the binary. |
+| Claude Code | `claude mcp add bseoa -s user -- bseoa mcp` |
+| Codex CLI | `codex mcp add bseoa -- bseoa mcp` |
+| Gemini CLI | `gemini mcp add bseoa bseoa mcp` |
+| Cursor | Add the JSON below to `~/.cursor/mcp.json` |
+
+```json
+{
+  "mcpServers": {
+    "bseoa": {
+      "command": "bseoa",
+      "args": ["mcp"]
+    }
+  }
+}
+```
+
+Setup for every host, with prompts to try, is on the [connector page](https://www.blackseoanalyzer.com/mcp).
+
+### Tools
+
+| Tool | What it does |
+| --- | --- |
+| `check_page` | Audit one URL immediately and return its SEO issues. |
+| `start_crawl` | Start crawling a whole site in the background and return a job id. |
+| `crawl_status` | Report the progress and state of a background crawl. |
+| `list_crawls` | List the stored crawls with their start URL, dates and page count. |
+| `issues_summary` | Summarize a crawl: counts by severity, category and issue key, with example URLs. |
+| `query_issues` | List individual issues from a crawl, filtered by severity, key, category or URL prefix. |
+| `page_report` | Report everything recorded about one crawled URL, including its full issue list. |
+| `compare_crawls` | Compare two crawls and report new, fixed and persisting issues. |
+| `serp_preview` | Show how each URL's title and description will look in a search result, including truncation. |
+| `search_docs` | Search bseoa's own documentation: tools, flags, limits, licenses and issue keys. |
+| `account_status` | Hosted connector only. Report your plan, the pages used and left, and how long results are kept. |
+
+No tool returns page HTML. Issues use a stable schema (`bseoa.issue/v1`) with a key, a category, a severity, the affected URL, a message and a fix hint.
+
 ## Overview
 
 Black SEO Analyzer is a powerful tool that keeps your website visible in both traditional search results and AI-generated responses. Good technical SEO isn't just about Google rankings—it's about making sure AI systems can find and understand your content when people ask about you.
