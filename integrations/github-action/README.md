@@ -10,7 +10,7 @@ any site that isn't already clean.
 ## Quick start
 
 ```yaml
-- uses: sethblack/black-seo-analyzer/integrations/github-action@v26.11.9
+- uses: sethblack/black-seo-analyzer/integrations/github-action@v26.11.18
   with:
     url: https://preview.example.com
     license-key: ${{ secrets.BSEOA_LICENSE_KEY }}
@@ -39,7 +39,7 @@ jobs:
           key: bseoa-baseline-${{ github.base_ref }}
 
       - name: Audit the preview deployment
-        uses: sethblack/black-seo-analyzer/integrations/github-action@v26.11.9
+        uses: sethblack/black-seo-analyzer/integrations/github-action@v26.11.18
         with:
           url: ${{ steps.deploy.outputs.preview-url }}
           license-key: ${{ secrets.BSEOA_LICENSE_KEY }}
@@ -61,7 +61,7 @@ jobs:
   baseline:
     runs-on: ubuntu-latest
     steps:
-      - uses: sethblack/black-seo-analyzer/integrations/github-action@v26.11.9
+      - uses: sethblack/black-seo-analyzer/integrations/github-action@v26.11.18
         id: audit
         with:
           url: https://example.com
